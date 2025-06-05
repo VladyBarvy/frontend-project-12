@@ -1,0 +1,33 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/VladyBarvy/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/VladyBarvy/frontend-project-12/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/dist",
+    "postinstall": "cd frontend && npm ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VladyBarvy/frontend-project-12.git"
+  },
+  "author": "barvv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VladyBarvy/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/VladyBarvy/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4",
+    "@reduxjs/toolkit": "^2.8.2",
+    "axios": "^1.9.0",
+    "formik": "^2.4.6",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.1",
+    "redux": "^5.0.1",
+    "socket.io-client": "^4.8.1",
+    "yup": "^1.6.1"
+  }
+}

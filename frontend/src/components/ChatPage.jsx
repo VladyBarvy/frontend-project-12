@@ -1,375 +1,7 @@
-/*
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchChannels,
-  fetchMessages,
-  setCurrentChannel,
-  addMessage,
-} from '../store/chatSlice';
-import MessageForm from './MessageForm';
-
-const ChatPage = () => {
-  const dispatch = useDispatch();
-  const {
-    messages,
-    currentChannelId,
-    status,
-    error,
-  } = useSelector((state) => state.chat);
-
-  const { channels = [] } = useSelector((state) => state.chat);
-
-  useEffect(() => {
-    dispatch(fetchChannels());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (currentChannelId) {
-      dispatch(fetchMessages(currentChannelId));
-    }
-  }, [dispatch, currentChannelId]);
-
-  const handleSendMessage = (text) => {
-    if (currentChannelId) {
-      dispatch(sendMessage({ channelId: currentChannelId, text }));
-    }
-  };
-
-  if (status === 'loading') return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  return (
-    <div className="chat-container">
-      <div className="channels-sidebar">
-        <h3>Channels</h3>
-        <ul>
-          {channels.map((channel) => (
-            <li
-              key={channel.id}
-              className={channel.id === currentChannelId ? 'active' : ''}
-              onClick={() => dispatch(setCurrentChannel(channel.id))}
-            >
-              #{channel.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="chat-area">
-        {currentChannelId && (
-          <>
-
-
-            <div className="messages">
-              {Array.isArray(messages[currentChannelId]) &&
-                messages[currentChannelId].map((message) => (
-                  <div key={message.id} className="message">
-                    <strong>{message.user.username}:</strong> {message.text}
-                  </div>
-                ))
-              }
-            </div>
-
-
-            <MessageForm onSubmit={handleSendMessage} />
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default ChatPage;
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { 
-//   fetchChannels,
-//   setCurrentChannel,
-//   addMessage,
-//   messageSending,
-//   messageSent
-// } from '../store/chatSlice';
-// import { connectWebSocket, sendWebSocketMessage } from '../api/wsService';
-// import MessageForm from './MessageForm';
-// import './ChatPage.css';
-
-// const ChatPage = () => {
-//   const dispatch = useDispatch();
-//   const {
-//     channels,
-//     messages,
-//     currentChannelId,
-//     status,
-//     error,
-//     isConnected
-//   } = useSelector((state) => state.chat);
-
-//   // Инициализация WebSocket и загрузка каналов
-//   useEffect(() => {
-//     dispatch(fetchChannels());
-//     connectWebSocket(dispatch, useSelector);
-
-//     return () => {
-//       // Очистка при размонтировании
-//       if (socket) {
-//         socket.close();
-//       }
-//     };
-//   }, [dispatch]);
-
-//   const handleSendMessage = async (text) => {
-//     if (!currentChannelId || !text.trim()) return;
-
-//     dispatch(messageSending());
-
-//     try {
-//       // Попытка отправить через WebSocket
-//       const wsSuccess = sendWebSocketMessage(currentChannelId, text);
-
-//       if (!wsSuccess) {
-//         // Fallback к HTTP, если WebSocket недоступен
-//         const response = await api.sendMessage(currentChannelId, text);
-//         dispatch(addMessage({
-//           channelId: currentChannelId,
-//           message: response.data
-//         }));
-//       }
-//     } catch (err) {
-//       console.error('Failed to send message:', err);
-//     } finally {
-//       dispatch(messageSent());
-//     }
-//   };
-
-//   if (status === 'loading') return <div className="loading">Loading channels...</div>;
-//   if (error) return <div className="error">Error: {error}</div>;
-
-//   return (
-//     <div className="chat-container">
-//       <div className="channels-sidebar">
-//         <h3>Channels</h3>
-//         <ul>
-//           {channels.map((channel) => (
-//             <li
-//               key={channel.id}
-//               className={channel.id === currentChannelId ? 'active' : ''}
-//               onClick={() => dispatch(setCurrentChannel(channel.id))}
-//             >
-//               #{channel.name}
-//             </li>
-//           ))}
-//         </ul>
-//         {!isConnected && (
-//           <div className="connection-status disconnected">
-//             Connecting to chat...
-//           </div>
-//         )}
-//       </div>
-
-//       <div className="chat-area">
-//         {currentChannelId && (
-//           <>
-//             <div className="messages">
-//               {messages[currentChannelId]?.map((message) => (
-//                 <div key={message.id} className="message">
-//                   <strong>{message.user.username}:</strong> {message.text}
-//                   <span className="message-time">
-//                     {new Date(message.createdAt).toLocaleTimeString()}
-//                   </span>
-//                 </div>
-//               ))}
-//             </div>
-
-//             <MessageForm 
-//               onSubmit={handleSendMessage} 
-//               isSubmitting={status === 'sending'}
-//               isConnected={isConnected}
-//             />
-//           </>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ChatPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { initSocket, sendSocketMessage } from '../api/wsService';
-// import { fetchChannels, fetchMessages, setCurrentChannel } from '../store/chatSlice';
-// import MessageForm from './MessageForm';
-// import './ChatPage.css';
-
-// const ChatPage = () => {
-//   const dispatch = useDispatch();
-//   const { token } = useSelector(state => state.auth);
-//   const {
-//     channels,
-//     currentChannelId,
-//     messages,
-//     loading,
-//     error,
-//     socketConnected
-//   } = useSelector(state => state.chat);
-
-//   // Инициализация данных и WebSocket
-//   useEffect(() => {
-//     dispatch(fetchChannels());
-//     dispatch(fetchMessages());
-//     const socket = initSocket(dispatch, token);
-
-//     return () => {
-//       if (socket) {
-//         socket.close();
-//       }
-//     };
-//   }, [dispatch, token]);
-
-//   const handleSendMessage = (text) => {
-//     if (!text.trim() || !currentChannelId) return;
-
-//     const message = {
-//       event: 'sendMessage',
-//       payload: {
-//         body: text,
-//         channelId: currentChannelId
-//       }
-//     };
-
-//     if (!sendSocketMessage(message)) {
-//       // Fallback to HTTP если WebSocket недоступен
-//       dispatch(sendMessageViaHttp({ channelId: currentChannelId, text }));
-//     }
-//   };
-
-//   const currentMessages = messages.filter(
-//     msg => msg.channelId === currentChannelId
-//   );
-
-//   if (loading) return <div>Loading...</div>;
-//   if (error) return <div>Error: {error}</div>;
-
-//   return (
-//     <div className="chat-container">
-//       <div className="channels-sidebar">
-//         <h3>Channels</h3>
-//         <ul>
-//           {channels.map(channel => (
-//             <li
-//               key={channel.id}
-//               className={channel.id === currentChannelId ? 'active' : ''}
-//               onClick={() => dispatch(setCurrentChannel(channel.id))}
-//             >
-//               #{channel.name}
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-
-//       <div className="chat-area">
-//         <div className="messages">
-//           {currentMessages.map(message => (
-//             <div key={message.id} className="message">
-//               <strong>{message.username}:</strong> {message.body}
-//             </div>
-//           ))}
-//         </div>
-
-//         <MessageForm 
-//           onSubmit={handleSendMessage} 
-//           disabled={!socketConnected}
-//         />
-
-//         {!socketConnected && (
-//           <div className="connection-warning">
-//             Connecting to chat server...
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ChatPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService';
-// import { fetchChannels, fetchMessages, setCurrentChannel } from '../store/chatSlice';
+
 import {
   fetchChannels,
   fetchMessages,
@@ -381,6 +13,9 @@ import {
 import axios from 'axios';
 
 import MessageForm from './MessageForm';
+import AddChannelModal from './AddChannelModal';
+import RenameChannelModal from './RenameChannelModal';
+import DeleteChannelModal from './DeleteChannelModal';
 import './ChatPage.css';
 
 const ChatPage = () => {
@@ -395,10 +30,88 @@ const ChatPage = () => {
     socketConnected
   } = useSelector(state => state.chat);
 
+
+  const [openMenuChannelId, setOpenMenuChannelId] = useState(null);
+
+
+
+  const toggleChannelMenu = (channelId) => {
+    if (openMenuChannelId === channelId) {
+      setOpenMenuChannelId(null);
+    } else {
+      setOpenMenuChannelId(channelId);
+    }
+  };
+
+
+
+
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Если клик вне меню — закрываем меню
+      if (!event.target.closest('.channel-menu') && !event.target.closest('.channel-menu-button')) {
+        setOpenMenuChannelId(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+
+
+
+
+
+
+
+  // Состояния для модалок
+  const [isAddChannelOpen, setAddChannelOpen] = useState(false);
+  const [isRenameChannelOpen, setRenameChannelOpen] = useState(false);
+  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [channelToEdit, setChannelToEdit] = useState(null);
+
+
+  // Функции открытия модалок
+  const openAddChannelModal = () => setAddChannelOpen(true);
+  const closeAddChannelModal = () => setAddChannelOpen(false);
+
+  const openRenameModal = (channel) => {
+    setChannelToEdit(channel);
+    setRenameChannelOpen(true);
+  };
+  const closeRenameModal = () => {
+    setChannelToEdit(null);
+    setRenameChannelOpen(false);
+  };
+
+  const openDeleteConfirmModal = (channel) => {
+    setChannelToEdit(channel);
+    setDeleteConfirmOpen(true);
+  };
+  const closeDeleteConfirmModal = () => {
+    setChannelToEdit(null);
+    setDeleteConfirmOpen(false);
+  };
+
+
+
+
+
+
+
   // Инициализация WebSocket и данных
   useEffect(() => {
     dispatch(fetchChannels());
     dispatch(fetchMessages());
+
+    console.log('Token for auth:', token);
+
     initSocket(dispatch, token);
 
     return () => {
@@ -406,48 +119,15 @@ const ChatPage = () => {
     };
   }, [dispatch, token]);
 
-  // const handleSendMessage = (text) => {
-  //   if (!text.trim() || !currentChannelId) return;
-
-
-  //   const username = localStorage.getItem('username') || 'Anonymous';
-
-  //   const payload = {
-  //     body: text,
-  //     channelId: currentChannelId,
-  //     username, // добавь имя
-  //   };
-
-  //   // const payload = {
-  //   //   body: text,
-  //   //   channelId: currentChannelId,
-  //   // };
-
-
-
-
-  //   console.log('Sending message:', payload);
-    
-
-  //   const success = sendSocketMessage('sendMessage', payload);
-
-  //   if (!success) {
-  //     // TODO: Fallback via HTTP if нужно
-  //     console.warn('Socket not connected, message not sent.');
-  //   }
-  // };
-
-
-
 
 
 
   const handleSendMessage = async (text) => {
     if (!text.trim() || !currentChannelId) return;
-  
-    const username = localStorage.getItem('username') || 'Anonymous';
+
+    const username = localStorage.getItem('username');
     const tempId = `temp-${Date.now()}`;
-  
+
     const tempMessage = {
       id: tempId,
       body: text,
@@ -455,10 +135,10 @@ const ChatPage = () => {
       username,
       pending: true,
     };
-  
+
     // Добавляем временное сообщение
     dispatch(addMessage(tempMessage));
-  
+
     try {
       const response = await axios.post('/api/v1/messages', {
         body: text,
@@ -467,16 +147,69 @@ const ChatPage = () => {
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
-  
+
       // Удаляем временное и добавляем настоящее (или просто обновляем его)
       dispatch(removeMessage(tempId));
       //dispatch(addMessage(response.data));
-  
+
     } catch (err) {
       console.error('Ошибка отправки:', err);
       dispatch(updateMessageStatus({ id: tempId, status: 'error' }));
     }
   };
+
+
+
+
+
+
+
+
+
+  const handleAddChannel = async (name) => {
+    try {
+      // отправка на сервер добавления канала
+      const response = await axios.post('/api/v1/channels', { name }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newChannel = response.data;
+
+      // переключаем пользователя на новый канал
+      dispatch(setCurrentChannel(newChannel.id));
+    } catch (error) {
+      console.error('Ошибка добавления канала:', error);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleDeleteChannel = async () => {
+    if (!channelToEdit) return;
+
+    try {
+      await axios.delete(`/api/v1/channels/${channelToEdit.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // WebSocket событие удалит канал из списка автоматически
+      closeDeleteConfirmModal();
+    } catch (err) {
+      console.error('Ошибка при удалении канала:', err);
+    }
+  };
+
+
+
+
 
 
 
@@ -498,10 +231,72 @@ const ChatPage = () => {
             <li
               key={channel.id}
               className={channel.id === currentChannelId ? 'active' : ''}
-              onClick={() => dispatch(setCurrentChannel(channel.id))}
             >
-              #{channel.name}
+              <span
+                onClick={() => dispatch(setCurrentChannel(channel.id))}
+                style={{ cursor: 'pointer' }}
+              >
+                # {channel.name}
+              </span>
+
+              {/* <button onClick={() => } aria-label="Меню канала" > ⋮ </button> */}
+
+              <button
+                className="channel-menu-button"
+                onClick={(e) => {
+                  e.stopPropagation(); // чтобы не сработал click на li
+                  toggleChannelMenu(channel.id);
+                }}
+                aria-label="Меню канала"
+              >
+                ⋮
+              </button>
+
+
+
+
+
+
+
+              {/* 
+              {channel.removable && (
+                <div className="channel-menu">
+                  <button onClick={() => openRenameModal(channel)}>Переименовать</button>
+                  <button onClick={() => openDeleteConfirmModal(channel)}>Удалить</button>
+                </div>
+              )} */}
+
+              {channel.removable && openMenuChannelId === channel.id && (
+                <div className="channel-menu" style={{
+                  position: 'absolute',
+                  background: 'white',
+                  border: '1px solid #ccc',
+                  padding: '5px',
+                  zIndex: 10,
+                }}>
+                  <button onClick={() => {
+                    openRenameModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    Переименовать
+                  </button>
+                  <button onClick={() => {
+                    openDeleteConfirmModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    Удалить
+                  </button>
+                </div>
+              )}
+
+
+
+
             </li>
+
+
+
+
           ))}
         </ul>
       </div>
@@ -515,6 +310,18 @@ const ChatPage = () => {
           ))}
         </div>
 
+
+
+        <AddChannelModal
+          isOpen={isAddChannelOpen}
+          onRequestClose={closeAddChannelModal}
+          onAddChannel={handleAddChannel}
+          channels={channels}
+        />
+
+        <button onClick={openAddChannelModal}>Добавить канал</button>
+
+
         <MessageForm
           onSubmit={handleSendMessage}
           isConnected={socketConnected}
@@ -525,6 +332,37 @@ const ChatPage = () => {
             Connecting to chat server...
           </div>
         )}
+
+
+
+
+        {isRenameChannelOpen && channelToEdit && (
+          <RenameChannelModal
+            channelId={channelToEdit.id}
+            initialName={channelToEdit.name}
+            onClose={closeRenameModal}
+          />
+        )}
+
+
+
+
+
+
+        {isDeleteConfirmOpen && channelToEdit && (
+          <DeleteChannelModal
+            isOpen={isDeleteConfirmOpen}
+            onRequestClose={closeDeleteConfirmModal}
+            onConfirm={handleDeleteChannel}
+            channelName={channelToEdit.name}
+          />
+        )}
+
+
+
+
+
+
       </div>
     </div>
   );

@@ -165,7 +165,9 @@ function LoginPage() {
     try {
       dispatch(loginStart());
       const { token } = await login(values);
-      dispatch(loginSuccess(token));
+      //dispatch(loginSuccess(token));  // важная строка 060625_1
+      localStorage.setItem('username', values.username);
+      dispatch(loginSuccess({ token, username: values.username }));
       navigate('/');
     } catch (err) {
       dispatch(loginFailure(err.message));

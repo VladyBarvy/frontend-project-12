@@ -218,17 +218,14 @@ export const initSocket = (dispatch, token) => {
     console.error('Socket.IO connection error:', err.message);
   });
 
-  // socket.on('newMessage', (payload) => {
-  //   dispatch({
-  //     type: 'chat/addMessage',
-  //     payload: {
-  //       channelId: payload.channelId,
-  //       message: payload,
-  //     },
-  //   });
-  // });
 
   socket.on('newMessage', (payload) => {
+
+    if (!payload.username) {
+      const username = localStorage.getItem('username');
+      payload = { ...payload, username };
+    }
+  
     console.log('Received message from socket:', payload);
     dispatch(addMessage(payload));
   });
@@ -253,6 +250,23 @@ export const initSocket = (dispatch, token) => {
       payload,
     });
   });
+
+
+
+
+
+  // socket.on('renameChannel', (payload) => {
+  //   dispatch({ type: 'chat/renameChannel', payload });
+  // });
+  
+  // socket.on('removeChannel', (payload) => {
+  //   dispatch({ type: 'chat/removeChannel', payload });
+  
+  //   // Если ты находишься в удалённом канале, переключись на default
+  //   if (payload.id === currentChannelId) {
+  //     dispatch({ type: 'chat/setCurrentChannelId', payload: defaultChannelId });
+  //   }
+  // });
 
 
 

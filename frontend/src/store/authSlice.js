@@ -15,13 +15,49 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+
+
+
+
+
+
+
+
+
+
+
+    // loginSuccess(state, action) {
+    //   const { token, username } = action.payload;
+    //   state.token = action.payload;
+    //   state.isAuthenticated = true;
+    //   state.loading = false;
+    //   state.error = null;
+    //   localStorage.setItem('token', action.payload);
+
+    //   localStorage.setItem('username', username);
+    //   //localStorage.setItem('token', user.token);
+    // },
+
+
     loginSuccess(state, action) {
-      state.token = action.payload;
+      const { token, username } = action.payload;
+      state.token = token;  // только сам токен
       state.isAuthenticated = true;
       state.loading = false;
       state.error = null;
-      localStorage.setItem('token', action.payload);
+    
+      localStorage.setItem('token', token);  // строка токена
+      localStorage.setItem('username', username);
     },
+
+
+
+
+
+
+
+
+
     loginFailure(state, action) {
       state.loading = false;
       state.error = action.payload;

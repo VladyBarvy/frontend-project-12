@@ -1,0 +1,43 @@
+{
+  "app": {
+    "title": "Hexlet Chat"
+  },
+  "home": {
+    "header": "Добро пожаловать в Hexlet Chat!",
+    "loginLink": "Уже есть аккаунт? Войдите"
+  },
+  "login": {
+    "title": "Вход",
+    "submit": "Войти"
+  },
+  "chat": {
+    "connect_to_chat_server": "Подключение к серверу...",
+    "add_channel_one": "Добавить канал",
+    "delete_channel_one": "Удалить",
+    "rename_channel_one":"Переименовать",
+    "list_of__channel_one":"Каналы"
+  },
+  "login_page": {
+    "sign_up_please": "Зарегистрируйтесь",
+    "password": "Пароль",
+    "login_name": "Логин",
+    "autorisation": "Авторизация"
+  },
+  "not_found_page": {
+    "no_p": "404 — Страница не найдена!",
+    "sorry": "Извините, такой страницы не существует.",
+    "back": "Вернуться на главную"
+  },
+  "registration_page": {
+    "regi": "Регистрация",
+    "name": "Имя пользователя",
+    "password": "Пароль",
+    "verif_password": "Подтверждение пароля",
+    "enter": "Войти",
+    "registration_one": "Регистрация...",
+    "registration_two": "Зарегистрироваться",
+    "user_exist": "Пользователь уже существует",
+    "error_regi": "Ошибка регистрации"
+  }
+  
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService';
+import { useTranslation } from 'react-i18next';
 
 import {
   fetchChannels,
@@ -19,6 +20,7 @@ import DeleteChannelModal from './DeleteChannelModal';
 import './ChatPage.css';
 
 const ChatPage = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { token } = useSelector(state => state.auth);
   const {
@@ -225,7 +227,7 @@ const ChatPage = () => {
   return (
     <div className="chat-container">
       <div className="channels-sidebar">
-        <h3>Channels</h3>
+        <h3>{t('chat.list_of__channel_one')}</h3>
         <ul>
           {channels.map(channel => (
             <li
@@ -267,13 +269,13 @@ const ChatPage = () => {
                     openRenameModal(channel);
                     setOpenMenuChannelId(null);
                   }}>
-                    Переименовать
+                    {t('chat.rename_channel_one')}
                   </button>
                   <button onClick={() => {
                     openDeleteConfirmModal(channel);
                     setOpenMenuChannelId(null);
                   }}>
-                    Удалить
+                    {t('chat.delete_channel_one')}
                   </button>
                 </div>
               )}
@@ -308,7 +310,7 @@ const ChatPage = () => {
           channels={channels}
         />
 
-        <button onClick={openAddChannelModal}>Добавить канал</button>
+        <button onClick={openAddChannelModal}>{t('chat.add_channel_one')}</button>
 
 
         <MessageForm
@@ -318,7 +320,7 @@ const ChatPage = () => {
 
         {!socketConnected && (
           <div className="connection-warning">
-            Connecting to chat server...
+            {t('chat.connect_to_chat_server')}
           </div>
         )}
 

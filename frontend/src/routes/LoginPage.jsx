@@ -6,6 +6,7 @@ import { login } from '../api/authService';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
+import { useTranslation } from 'react-i18next';
 
 // Схема валидации
 const LoginSchema = Yup.object().shape({
@@ -19,6 +20,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 function LoginPage() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
@@ -38,7 +40,7 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <h1>Авторизация</h1>
+      <h1>{t('login_page.autorisation')}</h1>
       {error && <div className="error">{error}</div>}
       
       <Formik
@@ -49,7 +51,7 @@ function LoginPage() {
         {({ errors, touched }) => (
           <Form className="login-form">
             <div className="form-group">
-              <label htmlFor="username">Логин</label>
+              <label htmlFor="username">{t('login_page.login_name')}</label>
               <Field 
 								type="text"
 								name="username"
@@ -62,7 +64,7 @@ function LoginPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Пароль</label>
+              <label htmlFor="password">{t('login_page.password')}</label>
               <Field 
 								name="password"
 								type="password"
@@ -82,7 +84,7 @@ function LoginPage() {
       </Formik>
 
 			<p className="register-link">
-        Нет аккаунта? <Link to="/signup">Зарегистрируйтесь</Link>
+        Нет аккаунта? <Link to="/signup">{t('login_page.sign_up_please')}</Link>
        </p>
 
     </div>

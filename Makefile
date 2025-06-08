@@ -1,7 +1,8 @@
 .PHONY: build start
 
 install:
-	make -C frontend install
+	npm install
+	cd frontend && npm install
 
 build:
 	make -C frontend build

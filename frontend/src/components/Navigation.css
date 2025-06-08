@@ -19,3 +19,14 @@
 .nav-link:hover {
   text-decoration: underline;
 }
+
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font: inherit;
+}

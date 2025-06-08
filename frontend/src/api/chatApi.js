@@ -1,37 +1,3 @@
-// import axios from 'axios';
-
-// const api = axios.create({
-//   baseURL: '/api/v1/',
-// });
-
-// // Добавляем интерцептор для JWT
-// api.interceptors.request.use((config) => {
-//   const token = localStorage.getItem('token');
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
-
-// export default {
-//   getChannels: () => api.get('/channels'),
-//   getMessages: (channelId) => api.get(`/channels/${channelId}/messages`),
-//   sendMessage: (channelId, text) => 
-//     api.post(`/channels/${channelId}/messages`, { text }),
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
 import axios from 'axios';
 
 const api = axios.create({

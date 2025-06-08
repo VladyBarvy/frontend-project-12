@@ -255,17 +255,6 @@ const ChatPage = () => {
 
 
 
-
-
-
-              {/* 
-              {channel.removable && (
-                <div className="channel-menu">
-                  <button onClick={() => openRenameModal(channel)}>Переименовать</button>
-                  <button onClick={() => openDeleteConfirmModal(channel)}>Удалить</button>
-                </div>
-              )} */}
-
               {channel.removable && openMenuChannelId === channel.id && (
                 <div className="channel-menu" style={{
                   position: 'absolute',

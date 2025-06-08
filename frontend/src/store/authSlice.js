@@ -16,29 +16,6 @@ const authSlice = createSlice({
       state.error = null;
     },
 
-
-
-
-
-
-
-
-
-
-
-    // loginSuccess(state, action) {
-    //   const { token, username } = action.payload;
-    //   state.token = action.payload;
-    //   state.isAuthenticated = true;
-    //   state.loading = false;
-    //   state.error = null;
-    //   localStorage.setItem('token', action.payload);
-
-    //   localStorage.setItem('username', username);
-    //   //localStorage.setItem('token', user.token);
-    // },
-
-
     loginSuccess(state, action) {
       const { token, username } = action.payload;
       state.token = token;  // только сам токен
@@ -63,10 +40,13 @@ const authSlice = createSlice({
       state.error = action.payload;
       localStorage.removeItem('token');
     },
+
+
     logout(state) {
       state.token = null;
       state.isAuthenticated = false;
       localStorage.removeItem('token');
+      localStorage.removeItem('username');
     },
   },
 });

@@ -56,7 +56,7 @@ function LoginPage() {
 								type="text"
 								name="username"
 								id="username"
-								placeholder="Введите ваш логин"
+								placeholder={t('login_page.enter_your_login')}
 							/>
               {errors.username && touched.username && (
                 <div className="error">{errors.username}</div>
@@ -69,7 +69,7 @@ function LoginPage() {
 								name="password"
 								type="password"
 								id="password"
-								placeholder="Введите пароль"
+								placeholder={t('login_page.enter_your_login')}
 							/>
               {errors.password && touched.password && (
                 <div className="error">{errors.password}</div>
@@ -77,7 +77,7 @@ function LoginPage() {
             </div>
 
             <button type="submit" disabled={loading} className="submit-btn">
-              {loading ? 'Вход...' : 'Войти'}
+              {loading ? t('login_page.enter_go') : t('login_page.enter_lets_go')}
             </button>
           </Form>
         )}

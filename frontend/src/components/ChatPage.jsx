@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   fetchChannels,
@@ -52,7 +54,6 @@ const ChatPage = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Если клик вне меню — закрываем меню
       if (!event.target.closest('.channel-menu') && !event.target.closest('.channel-menu-button')) {
         setOpenMenuChannelId(null);
       }
@@ -100,6 +101,69 @@ const ChatPage = () => {
     setChannelToEdit(null);
     setDeleteConfirmOpen(false);
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // useEffect(() => {
+  //   dispatch(fetchChannels())
+  //     .unwrap()
+  //     .catch(() => {
+  //       toast.error(t('chat.error_go') + ' ' + t('chat.load_channels_error'));
+  //     });
+
+  //   dispatch(fetchMessages())
+  //     .unwrap()
+  //     .catch(() => {
+  //       toast.error(t('chat.error_go') + ' ' + t('chat.load_messages_error'));
+  //     });
+  // }, [dispatch, token]);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        await dispatch(fetchChannels()).unwrap();
+        await dispatch(fetchMessages()).unwrap();
+      } catch (err) {
+        console.error('Ошибка при загрузке данных:', err);
+        if (!navigator.onLine) {
+          toast.error(t('chat.network_error'));
+        } else {
+          toast.error(`${t('chat.error_go')} ${t('chat.load_data_error')}`);
+        }
+      }
+    };
+
+    loadData();
+    initSocket(dispatch, token);
+
+    return () => {
+      closeSocket();
+    };
+  }, [dispatch, token, t]);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,6 +221,7 @@ const ChatPage = () => {
     } catch (err) {
       console.error('Ошибка отправки:', err);
       dispatch(updateMessageStatus({ id: tempId, status: 'error' }));
+      toast.error(t('chat.error_go') + ' ' + t('chat.message_send_error'));
     }
   };
 
@@ -167,19 +232,18 @@ const ChatPage = () => {
 
 
 
-
   const handleAddChannel = async (name) => {
     try {
-      // отправка на сервер добавления канала
       const response = await axios.post('/api/v1/channels', { name }, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const newChannel = response.data;
 
-      // переключаем пользователя на новый канал
+      const newChannel = response.data;
       dispatch(setCurrentChannel(newChannel.id));
+      toast.success(t('chat.channel_created'));
     } catch (error) {
       console.error('Ошибка добавления канала:', error);
+      toast.error(t('chat.error_create_channel'));
     }
   };
 
@@ -204,8 +268,11 @@ const ChatPage = () => {
       });
       // WebSocket событие удалит канал из списка автоматически
       closeDeleteConfirmModal();
+      toast.success(t('chat.chat.channel_deleted'));
+
     } catch (err) {
       console.error('Ошибка при удалении канала:', err);
+      toast.error(t('chat.error_go') + ' ' + t('chat.error_delete_channel'));
     }
   };
 
@@ -221,13 +288,13 @@ const ChatPage = () => {
     msg => msg.channelId === currentChannelId
   );
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>{t('chat.loading_go')}</div>;
+  if (error) return <div>{t('chat.error_go')} {error}</div>;
 
   return (
     <div className="chat-container">
       <div className="channels-sidebar">
-        <h3>{t('chat.list_of__channel_one')}</h3>
+        <h3>{t('chat.list_of_channel_one')}</h3>
         <ul>
           {channels.map(channel => (
             <li
@@ -241,7 +308,6 @@ const ChatPage = () => {
                 # {channel.name}
               </span>
 
-              {/* <button onClick={() => } aria-label="Меню канала" > ⋮ </button> */}
 
               <button
                 className="channel-menu-button"
@@ -249,7 +315,7 @@ const ChatPage = () => {
                   e.stopPropagation(); // чтобы не сработал click на li
                   toggleChannelMenu(channel.id);
                 }}
-                aria-label="Меню канала"
+                aria-label={t('chat.menu_of_channel')}
               >
                 ⋮
               </button>
@@ -314,6 +380,7 @@ const ChatPage = () => {
 
 
         <MessageForm
+
           onSubmit={handleSendMessage}
           isConnected={socketConnected}
         />
@@ -350,12 +417,16 @@ const ChatPage = () => {
         )}
 
 
-
+        <ToastContainer position="top-right" autoClose={3000} />
 
 
 
       </div>
     </div>
+
+
+
+
   );
 };
 

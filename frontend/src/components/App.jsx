@@ -11,14 +11,10 @@ import "./App.css";
 import ProtectedRoute from './ProtectedRoute.jsx';
 import { useSelector } from 'react-redux';
 
-// function RootRoute() {
-//   const { isAuthenticated } = useSelector((state) => state.auth);
-
-//   return isAuthenticated ? <ChatPage /> : <HomePage />;
-// }
 
 function RootRoute() {
   const { isAuthenticated } = useSelector((state) => state.auth);
+
   return isAuthenticated ? <ChatPage /> : <HomePage />;
 }
 
@@ -27,21 +23,6 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Navigation />
-        {/* <Routes>
-					<Route 
-            path="/" 
-            element={
-              <ProtectedRoute>
-                <RootRoute />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<RegisterPage />} />
-					<Route path="*" element={<NotFoundPage />} />
-        </Routes> */}
-
-
         <Routes>
           <Route path="/" element={<RootRoute />} />
           <Route path="/signup" element={<RegisterPage />} />

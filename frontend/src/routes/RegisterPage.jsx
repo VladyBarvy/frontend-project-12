@@ -7,23 +7,27 @@ import { useNavigate, Link } from 'react-router-dom';
 import './RegisterPage.css';
 import { useTranslation } from 'react-i18next';
 
-const RegisterSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(6, 'Не менее 6 символов')
-    .required('Обязательное поле'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Пароли не совпадают')
-    .required('Обязательное поле'),
-});
+
 
 function RegisterPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  const RegisterSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, t('registration_page.symbol_3_20'))
+      .max(20, t('registration_page.symbol_3_20'))
+      .required(t('registration_page.must_have_form')),
+    password: Yup.string()
+      .min(6, t('registration_page.symbol_six'))
+      .required(t('registration_page.must_have_form')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], t('registration_page.password_wrong'))
+      .required(t('registration_page.must_have_form')),
+  });
+
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {

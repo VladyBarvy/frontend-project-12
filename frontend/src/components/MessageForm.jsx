@@ -1,49 +1,9 @@
-// import React, { useState } from 'react';
-
-// const MessageForm = ({ onSubmit }) => {
-//   const [text, setText] = useState('');
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (text.trim()) {
-//       onSubmit(text.trim());
-//       setText('');
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className="message-form">
-//       <input
-//         type="text"
-//         value={text}
-//         onChange={(e) => setText(e.target.value)}
-//         placeholder="Type a message..."
-//       />
-//       <button type="submit">Send</button>
-//     </form>
-//   );
-// };
-
-// export default MessageForm;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
   const [text, setText] = React.useState('');
+  const { t } = useTranslation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,18 +19,18 @@ const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder={isConnected ? "Type a message..." : "Connecting..."}
+        placeholder={isConnected ? t('messageform_page.write_message') : t('messageform_page.connect_me')}
         disabled={!isConnected || isSubmitting}
       />
       <button 
         type="submit" 
         disabled={!isConnected || isSubmitting || !text.trim()}
       >
-        {isSubmitting ? 'Sending...' : 'Send'}
+        {isSubmitting ? t('messageform_page.sending') : t('messageform_page.send')}
       </button>
       {!isConnected && (
         <div className="connection-warning">
-          Message will be sent when connection is restored
+          {t('messageform_page.esc_one')}
         </div>
       )}
     </form>

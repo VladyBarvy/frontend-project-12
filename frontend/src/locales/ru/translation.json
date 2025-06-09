@@ -14,14 +14,31 @@
     "connect_to_chat_server": "Подключение к серверу...",
     "add_channel_one": "Добавить канал",
     "delete_channel_one": "Удалить",
-    "rename_channel_one":"Переименовать",
-    "list_of__channel_one":"Каналы"
+    "rename_channel_one": "Переименовать",
+    "list_of_channel_one": "Каналы",
+    "loading_go": "Loading...",
+    "error_go": "Error: ",
+    "menu_of_channel": "Меню канала",
+    "load_channels_error": "Ошибка загрузки каналов",
+    "load_messages_error": "Ошибка загрузки сообщений",
+    "message_send_error": "Не удалось отправить сообщение",
+    "channel_created": "Канал создан",
+    "channel_renamed": "Канал переименован",
+    "channel_deleted": "Канал удалён",
+    "error_create_channel": "Ошибка при создании канала",
+    "error_rename_channel": "Ошибка при переименовании канала",
+    "error_delete_channel": "Ошибка при удалении канала",
+    "network_error": "Проблема с сетью. Проверьте подключение.",
+    "load_data_error": "Не удалось загрузить данные."
   },
   "login_page": {
     "sign_up_please": "Зарегистрируйтесь",
     "password": "Пароль",
     "login_name": "Логин",
-    "autorisation": "Авторизация"
+    "autorisation": "Авторизация",
+    "enter_your_login": "Введите ваш логин",
+    "enter_go": "Вход...",
+    "enter_lets_go": "Войти"
   },
   "not_found_page": {
     "no_p": "404 — Страница не найдена!",
@@ -37,7 +54,41 @@
     "registration_one": "Регистрация...",
     "registration_two": "Зарегистрироваться",
     "user_exist": "Пользователь уже существует",
-    "error_regi": "Ошибка регистрации"
+    "error_regi": "Ошибка регистрации",
+    "symbol_3_20": "От 3 до 20 символов",
+    "must_have_form": "Обязательное поле",
+    "symbol_six": "Не менее 6 символов",
+    "password_wrong": "Пароли не совпадают"
+  },
+  "delete_channel_page": {
+    "delete_channel": "Удалить канал",
+    "are_you_sure": "Вы уверены, что хотите удалить канал ",
+    "delete_go": "Удалить",
+    "cancel_go": "Отмена"
+  },
+  "rename_channel_page": {
+    "symb_3": "Название должно быть не короче 3 символов",
+    "symb_20": "Название должно быть не длиннее 20 символов",
+    "channel_name_exist": "Канал с таким именем уже существует",
+    "must_have_form": "Обязательное поле",
+    "rename_channel_go": "Переименовать канал",
+    "name_of_channel": "Название канала:",
+    "rename_go_one": "Переименовать",
+    "cancel_go": "Отмена"
+  },
+  "messageform_page": {
+    "esc_one": "Сообщение будет отправлено, когда восстановится связь",
+    "symb_20": "Название должно быть не длиннее 20 символов",
+    "channel_name_exist": "Канал с таким именем уже существует",
+    "must_have_form": "Обязательное поле",
+    "rename_channel_go": "Переименовать канал",
+    "name_of_channel": "Название канала:",
+    "rename_go_one": "Переименовать",
+    "cancel_go": "Отмена",
+    "write_message": "Введите текст...",
+    "connect_me": "Подключение",
+    "sending": "Отправка...",
+    "send": "Отправлено"
+
   }
-  
 }

@@ -1,15 +1,19 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { useTranslation } from 'react-i18next';
 
-const DeleteChannelModal = ({ isOpen, onRequestClose, onConfirm, channelName }) => (
+function DeleteChannelModal ({ isOpen, onRequestClose, onConfirm, channelName }) {
+  const { t } = useTranslation();
+  return (
   <Modal isOpen={isOpen} onRequestClose={onRequestClose} ariaHideApp={false}>
-    <h2>Удалить канал</h2>
-    <p>Вы уверены, что хотите удалить канал «{channelName}»?</p>
+    <h2>{t('delete_channel_page.delete_channel')}</h2>
+    <p>{t('delete_channel_page.are_you_sure')} «{channelName}»?</p>
     <div>
-      <button onClick={onConfirm}>Удалить</button>
-      <button onClick={onRequestClose}>Отмена</button>
+      <button onClick={onConfirm}>{t('delete_channel_page.delete_go')}</button>
+      <button onClick={onRequestClose}>{t('delete_channel_page.cancel_go')}</button>
     </div>
   </Modal>
-);
+  );
+};
 
 export default DeleteChannelModal;

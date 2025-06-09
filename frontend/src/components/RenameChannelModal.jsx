@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
 const RenameChannelModal = ({ channelId, initialName, onClose }) => {
   const token = useSelector((state) => state.auth.token);
@@ -14,6 +15,19 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
     state.channels?.channels?.map((ch) => ch.name) || []
   );
 
+  const filterProfanity = (text) => {
+    if (!leoProfanity.list().length) {
+      leoProfanity.loadDictionary('ru');
+      leoProfanity.add(leoProfanity.getDictionary('en'));
+    }
+  
+    const filtered = leoProfanity.clean(text);
+    if (filtered !== text) {
+      toast.warn(t('chat.profanity_filtered'));
+    }
+    return filtered;
+  };
+
   const RenameSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, t('rename_channel_page.symb_3'))
@@ -22,11 +36,29 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
       .required(t('rename_channel_page.must_have_form')),
   });
 
+  // const handleRename = async (values, { setSubmitting }) => {
+  //   try {
+  //     await axios.patch(`/api/v1/channels/${channelId}`, { name: values.name }, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     toast.success(t('chat.channel_renamed'));
+  //     onClose();
+  //   } catch (err) {
+  //     console.error('Ошибка при переименовании:', err);
+  //     toast.error(t('chat.error_rename_channel'));
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
+
   const handleRename = async (values, { setSubmitting }) => {
     try {
-      await axios.patch(`/api/v1/channels/${channelId}`, { name: values.name }, {
+      const cleanName = filterProfanity(values.name);
+  
+      await axios.patch(`/api/v1/channels/${channelId}`, { name: cleanName }, {
         headers: { Authorization: `Bearer ${token}` },
       });
+  
       toast.success(t('chat.channel_renamed'));
       onClose();
     } catch (err) {

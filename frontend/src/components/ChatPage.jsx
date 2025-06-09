@@ -4,6 +4,7 @@ import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import leoProfanity from 'leo-profanity';
 
 import {
   fetchChannels,
@@ -20,6 +21,8 @@ import AddChannelModal from './AddChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import DeleteChannelModal from './DeleteChannelModal';
 import './ChatPage.css';
+
+
 
 const ChatPage = () => {
   const { t } = useTranslation();
@@ -46,6 +49,41 @@ const ChatPage = () => {
       setOpenMenuChannelId(channelId);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const filterProfanity = (text) => {
+    if (!leoProfanity.list().length) {
+      leoProfanity.loadDictionary('ru');
+      leoProfanity.add(leoProfanity.getDictionary('en')); // комбинирует русские и английские
+      
+    }
+    
+    const originalText = text;
+    const filteredText = leoProfanity.clean(text);
+    
+    // Если текст был изменен, показываем уведомление
+    if (filteredText !== originalText) {
+      toast.warn(t('chat.profanity_filtered'));
+    }
+    
+    return filteredText;
+  };
+
+
+
 
 
 
@@ -116,21 +154,6 @@ const ChatPage = () => {
 
 
 
-
-
-  // useEffect(() => {
-  //   dispatch(fetchChannels())
-  //     .unwrap()
-  //     .catch(() => {
-  //       toast.error(t('chat.error_go') + ' ' + t('chat.load_channels_error'));
-  //     });
-
-  //   dispatch(fetchMessages())
-  //     .unwrap()
-  //     .catch(() => {
-  //       toast.error(t('chat.error_go') + ' ' + t('chat.load_messages_error'));
-  //     });
-  // }, [dispatch, token]);
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -172,18 +195,18 @@ const ChatPage = () => {
 
 
   // Инициализация WebSocket и данных
-  useEffect(() => {
-    dispatch(fetchChannels());
-    dispatch(fetchMessages());
+  // useEffect(() => {
+  //   dispatch(fetchChannels());
+  //   dispatch(fetchMessages());
 
-    console.log('Token for auth:', token);
+  //   console.log('Token for auth:', token);
 
-    initSocket(dispatch, token);
+  //   initSocket(dispatch, token);
 
-    return () => {
-      closeSocket();
-    };
-  }, [dispatch, token]);
+  //   return () => {
+  //     closeSocket();
+  //   };
+  // }, [dispatch, token]);
 
 
 
@@ -191,12 +214,23 @@ const ChatPage = () => {
   const handleSendMessage = async (text) => {
     if (!text.trim() || !currentChannelId) return;
 
+    // Фильтруем текст перед отправкой
+    const filteredText = filterProfanity(text);
+
+
+
+
     const username = localStorage.getItem('username');
     const tempId = `temp-${Date.now()}`;
 
+
+
+
+
+
     const tempMessage = {
       id: tempId,
-      body: text,
+      body: filteredText, // Используем отфильтрованный текст
       channelId: currentChannelId,
       username,
       pending: true,
@@ -207,7 +241,7 @@ const ChatPage = () => {
 
     try {
       const response = await axios.post('/api/v1/messages', {
-        body: text,
+        body: filteredText, // Используем отфильтрованный текст
         channelId: currentChannelId,
         username,
       }, {
@@ -234,7 +268,16 @@ const ChatPage = () => {
 
   const handleAddChannel = async (name) => {
     try {
-      const response = await axios.post('/api/v1/channels', { name }, {
+      // Фильтруем название канала
+      const filteredName = filterProfanity(name);
+
+      // const response = await axios.post('/api/v1/channels', { name }, {
+      //   headers: { Authorization: `Bearer ${token}` },
+      // });
+
+      const response = await axios.post('/api/v1/channels', { 
+        name: filteredName // Используем отфильтрованное название
+      }, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

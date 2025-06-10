@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import leoProfanity from 'leo-profanity';
+const DEFAULT_CHANNELS = ['general', 'random'];
 
 import {
   fetchChannels,
@@ -68,17 +69,17 @@ const ChatPage = () => {
     if (!leoProfanity.list().length) {
       leoProfanity.loadDictionary('ru');
       leoProfanity.add(leoProfanity.getDictionary('en')); // комбинирует русские и английские
-      
+
     }
-    
+
     const originalText = text;
     const filteredText = leoProfanity.clean(text);
-    
+
     // Если текст был изменен, показываем уведомление
     if (filteredText !== originalText) {
       toast.warn(t('chat.profanity_filtered'));
     }
-    
+
     return filteredText;
   };
 
@@ -275,7 +276,7 @@ const ChatPage = () => {
       //   headers: { Authorization: `Bearer ${token}` },
       // });
 
-      const response = await axios.post('/api/v1/channels', { 
+      const response = await axios.post('/api/v1/channels', {
         name: filteredName // Используем отфильтрованное название
       }, {
         headers: { Authorization: `Bearer ${token}` },
@@ -311,7 +312,7 @@ const ChatPage = () => {
       });
       // WebSocket событие удалит канал из списка автоматически
       closeDeleteConfirmModal();
-      toast.success(t('chat.chat.channel_deleted'));
+      toast.success(t('chat.channel_deleted'));
 
     } catch (err) {
       console.error('Ошибка при удалении канала:', err);
@@ -338,7 +339,84 @@ const ChatPage = () => {
     <div className="chat-container">
       <div className="channels-sidebar">
         <h3>{t('chat.list_of_channel_one')}</h3>
-        <ul>
+
+
+
+{/* 
+        
+        <button
+          className={`channel-button ${currentChannelId === 'general' ? 'active' : ''}`}
+          onClick={() => dispatch(setCurrentChannel('general'))}
+          name="general"
+          type="button"
+          aria-label={t('chat.general_channel')}
+        >
+          {t('chat.general_channel')}
+        </button>
+
+        
+        <button
+          className={`channel-button ${currentChannelId === 'random' ? 'active' : ''}`}
+          onClick={() => dispatch(setCurrentChannel('random'))}
+          name="random"
+          type="button"
+          aria-label={t('chat.random_channel')}
+        >
+          {t('chat.random_channel')}
+        </button>
+ */}
+
+
+
+
+
+      {/* Отдельные кнопки для дефолтных каналов */}
+      {DEFAULT_CHANNELS.map(channelName => {
+        const channel = channels.find(ch => 
+          ch.name.toLowerCase() === channelName.toLowerCase()
+        );
+        
+        if (!channel) return null;
+        
+        return (
+          <button
+            key={channel.id}
+            className={`channel-button ${currentChannelId === channel.id ? 'active' : ''}`}
+            onClick={() => dispatch(setCurrentChannel(channel.id))}
+            name={channelName}
+            type="button"
+            aria-label={t(`chat.${channelName}_channel`)}
+          >
+            {t(`chat.${channelName}_channel`)}
+          </button>
+        );
+      })}
+
+      {/* Список остальных каналов */}
+      <ul>
+        {channels
+          .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
+          .map(channel => (
+            <li
+              key={channel.id}
+              className={channel.id === currentChannelId ? 'active' : ''}
+            >
+              <span onClick={() => dispatch(setCurrentChannel(channel.id))}>
+                # {channel.name}
+              </span>
+              
+              {/* Остальной код меню каналов... */}
+            </li>
+          ))
+        }
+      </ul>
+
+
+
+
+
+
+        {/* <ul>
           {channels.map(channel => (
             <li
               key={channel.id}
@@ -398,8 +476,81 @@ const ChatPage = () => {
 
 
           ))}
-        </ul>
+        </ul> */}
+
+
+
+
+
+        {/* <ul>
+          {channels.map(channel => (
+            <li
+              key={channel.id}
+              className={channel.id === currentChannelId ? 'active' : ''}
+            >
+              <span
+                onClick={() => dispatch(setCurrentChannel(channel.id))}
+                style={{ cursor: 'pointer' }}
+              >
+                # {channel.name}
+              </span>
+
+              <button
+                className="channel-menu-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleChannelMenu(channel.id);
+                }}
+                aria-label={t('chat.menu_of_channel')}
+              >
+                ⋮
+              </button>
+
+              {channel.removable && openMenuChannelId === channel.id && (
+                <div className="channel-menu" style={{
+                  position: 'absolute',
+                  background: 'white',
+                  border: '1px solid #ccc',
+                  padding: '5px',
+                  zIndex: 10,
+                }}>
+                  <button onClick={() => {
+                    openRenameModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    {t('chat.rename_channel_one')}
+                  </button>
+                  <button onClick={() => {
+                    openDeleteConfirmModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    {t('chat.delete_channel_one')}
+                  </button>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul> */}
+
+
+
+
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
+
+
+
 
       <div className="chat-area">
         <div className="messages">

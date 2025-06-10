@@ -12,6 +12,8 @@
   },
   "chat": {
     "connect_to_chat_server": "Подключение к серверу...",
+    "general_channel": "General",
+    "random_channel": "Random",
     "add_channel_one": "Добавить канал",
     "delete_channel_one": "Удалить",
     "rename_channel_one": "Переименовать",

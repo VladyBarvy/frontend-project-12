@@ -54,9 +54,12 @@ function LoginPage() {
               
               <Field 
 								type="text"
+                as="input"
 								name="username"
 								id="username"
-								placeholder={t('login_page.login_name')}
+								placeholder="Ваш ник"
+                autoComplete="username"
+                required
 							/>
               <label htmlFor="username">{t('login_page.login_name')}</label>
               {errors.username && touched.username && (
@@ -71,6 +74,8 @@ function LoginPage() {
 								type="password"
 								id="password"
 								placeholder={t('login_page.password')}
+                autoComplete="password"
+                required
 							/>
                <label htmlFor="password">{t('login_page.password')}</label>
               {errors.password && touched.password && (

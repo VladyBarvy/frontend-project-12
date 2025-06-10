@@ -384,6 +384,7 @@ const ChatPage = () => {
             className={`channel-button ${currentChannelId === channel.id ? 'active' : ''}`}
             onClick={() => dispatch(setCurrentChannel(channel.id))}
             name={channelName}
+            role="button"
             type="button"
             aria-label={t(`chat.${channelName}_channel`)}
           >
@@ -405,7 +406,44 @@ const ChatPage = () => {
                 # {channel.name}
               </span>
               
-              {/* Остальной код меню каналов... */}
+              
+
+              <button
+                className="channel-menu-button"
+                onClick={(e) => {
+                  e.stopPropagation(); // чтобы не сработал click на li
+                  toggleChannelMenu(channel.id);
+                }}
+                aria-label={t('chat.menu_of_channel')}
+              >
+                ⋮
+              </button>
+
+
+
+
+              {channel.removable && openMenuChannelId === channel.id && (
+                <div className="channel-menu" style={{
+                  position: 'absolute',
+                  background: 'white',
+                  border: '1px solid #ccc',
+                  padding: '5px',
+                  zIndex: 10,
+                }}>
+                  <button onClick={() => {
+                    openRenameModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    {t('chat.rename_channel_one')}
+                  </button>
+                  <button onClick={() => {
+                    openDeleteConfirmModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    {t('chat.delete_channel_one')}
+                  </button>
+                </div>
+              )}
             </li>
           ))
         }

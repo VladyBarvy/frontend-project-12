@@ -61,7 +61,7 @@
     "symbol_3_20": "От 3 до 20 символов",
     "must_have_form": "Обязательное поле",
     "symbol_six": "Не менее 6 символов",
-    "password_wrong": "Пароли не совпадают"
+    "password_wrong": "Пароли должны совпадать"
   },
   "delete_channel_page": {
     "delete_channel": "Удалить канал",

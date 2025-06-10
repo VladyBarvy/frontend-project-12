@@ -57,23 +57,26 @@ function RegisterPage() {
         validationSchema={RegisterSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form className="register-form">
             <div className="form-group">
-              {/* <label htmlFor="username">{t('registration_page.name')}</label> */}
-              <Field type="text" name="username" placeholder={t('registration_page.name')} />
+              
+              <Field id="username" type="text" name="username" placeholder={t('registration_page.symbol_3_20')} autoComplete="username" required />
+              <label htmlFor="username">{t('registration_page.name')}</label>
               <ErrorMessage name="username" component="div" className="error" />
             </div>
 
             <div className="form-group">
-              {/* <label htmlFor="password">{t('registration_page.password')}</label> */}
-              <Field type="password" name="password" placeholder={t('registration_page.password')} />
+             
+              <Field id="password" type="password" name="password" placeholder={t('registration_page.symbol_six')} autoComplete="new-password" required />
+               <label htmlFor="password">{t('registration_page.password')}</label>
               <ErrorMessage name="password" component="div" className="error" />
             </div>
 
             <div className="form-group">
-              {/* <label htmlFor="confirmPassword">{t('registration_page.verif_password')}</label> */}
-              <Field type="password" name="confirmPassword" placeholder={t('registration_page.verif_password')} />
+              
+              <Field id="confirmPassword" type="password" name="confirmPassword" placeholder={t('registration_page.verif_password')} autoComplete="new-password" required />
+              <label htmlFor="confirmPassword">{t('registration_page.verif_password')}</label>
               <ErrorMessage name="confirmPassword" component="div" className="error" />
             </div>
 

@@ -61,7 +61,7 @@ function LoginPage() {
                 autoComplete="username"
                 required
 							/>
-              <label htmlFor="username">{t('login_page.login_name')}</label>
+              <label htmlFor="username">Ваш ник</label>
               {errors.username && touched.username && (
                 <div className="error">{errors.username}</div>
               )}

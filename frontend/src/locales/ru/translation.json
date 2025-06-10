@@ -33,11 +33,11 @@
     "profanity_filtered": "Ваше сообщение было отфильтровано от нецензурных выражений"
   },
   "login_page": {
-    "sign_up_please": "Зарегистрируйтесь",
+    "sign_up_please": "Регистрация",
     "password": "Пароль",
     "login_name": "Логин",
-    "autorisation": "Авторизация",
-    "enter_your_login": "Введите ваш логин",
+    "autorisation": "Войти",
+    "enter_your_login": "Ваш ник",
     "enter_go": "Вход...",
     "enter_lets_go": "Войти"
   },
@@ -50,7 +50,7 @@
     "regi": "Регистрация",
     "name": "Имя пользователя",
     "password": "Пароль",
-    "verif_password": "Подтверждение пароля",
+    "verif_password": "Подтвердите пароль",
     "enter": "Войти",
     "registration_one": "Регистрация...",
     "registration_two": "Зарегистрироваться",

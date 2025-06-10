@@ -61,19 +61,19 @@ function RegisterPage() {
           <Form className="register-form">
             <div className="form-group">
               <label htmlFor="username">{t('registration_page.name')}</label>
-              <Field type="text" name="username" />
+              <Field type="text" name="username" placeholder={t('registration_page.name')} />
               <ErrorMessage name="username" component="div" className="error" />
             </div>
 
             <div className="form-group">
               <label htmlFor="password">{t('registration_page.password')}</label>
-              <Field type="password" name="password" />
+              <Field type="password" name="password" placeholder={t('registration_page.password')} />
               <ErrorMessage name="password" component="div" className="error" />
             </div>
 
             <div className="form-group">
               <label htmlFor="confirmPassword">{t('registration_page.verif_password')}</label>
-              <Field type="password" name="confirmPassword" />
+              <Field type="password" name="confirmPassword" placeholder={t('registration_page.verif_password')} />
               <ErrorMessage name="confirmPassword" component="div" className="error" />
             </div>
 

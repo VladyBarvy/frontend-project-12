@@ -69,7 +69,7 @@ function LoginPage() {
 								name="password"
 								type="password"
 								id="password"
-								placeholder={t('login_page.enter_your_login')}
+								placeholder={t('login_page.password')}
 							/>
               {errors.password && touched.password && (
                 <div className="error">{errors.password}</div>

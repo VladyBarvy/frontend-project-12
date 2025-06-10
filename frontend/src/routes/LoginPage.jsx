@@ -51,26 +51,28 @@ function LoginPage() {
         {({ errors, touched }) => (
           <Form className="login-form">
             <div className="form-group">
-              <label htmlFor="username">{t('login_page.login_name')}</label>
+              
               <Field 
 								type="text"
 								name="username"
 								id="username"
-								placeholder={t('login_page.enter_your_login')}
+								placeholder={t('login_page.login_name')}
 							/>
+              <label htmlFor="username">{t('login_page.login_name')}</label>
               {errors.username && touched.username && (
                 <div className="error">{errors.username}</div>
               )}
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">{t('login_page.password')}</label>
+             
               <Field 
 								name="password"
 								type="password"
 								id="password"
 								placeholder={t('login_page.password')}
 							/>
+               <label htmlFor="password">{t('login_page.password')}</label>
               {errors.password && touched.password && (
                 <div className="error">{errors.password}</div>
               )}

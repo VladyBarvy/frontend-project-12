@@ -372,9 +372,7 @@ const ChatPage = () => {
 
       {/* Отдельные кнопки для дефолтных каналов */}
       {DEFAULT_CHANNELS.map(channelName => {
-        const channel = channels.find(ch => 
-          ch.name.toLowerCase() === channelName.toLowerCase()
-        );
+        const channel = channels.find(ch => ch.name.toLowerCase() === channelName);
         
         if (!channel) return null;
         
@@ -383,7 +381,7 @@ const ChatPage = () => {
             key={channel.id}
             className={`channel-button ${currentChannelId === channel.id ? 'active' : ''}`}
             onClick={() => dispatch(setCurrentChannel(channel.id))}
-            name={channelName}
+            // name={channelName}
             role="button"
             type="button"
             aria-label={t(`chat.${channelName}_channel`)}
@@ -394,24 +392,29 @@ const ChatPage = () => {
       })}
 
       {/* Список остальных каналов */}
-      <ul>
+      {/* <ul> */}
         {channels
           .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
           .map(channel => (
-            <li
-              key={channel.id}
-              className={channel.id === currentChannelId ? 'active' : ''}
-            >
-              <span onClick={() => dispatch(setCurrentChannel(channel.id))}>
+            <div key={channel.id} className={channel.id === currentChannelId ? 'active' : ''}>
+              {/* <span onClick={() => dispatch(setCurrentChannel(channel.id))}>
                 # {channel.name}
-              </span>
+              </span> */}
               
-              
+              <button 
+                className="channel-button" 
+                onClick={()=> dispatch(setCurrentChannel(channel.id))} 
+                type="button"
+                role="button"
+                aria-label={t(`chat.custom_channel`)}
+              >
+                # {channel.name}
+              </button>
 
               <button
                 className="channel-menu-button"
                 onClick={(e) => {
-                  e.stopPropagation(); // чтобы не сработал click на li
+                  e.stopPropagation();
                   toggleChannelMenu(channel.id);
                 }}
                 aria-label={t('chat.menu_of_channel')}
@@ -444,10 +447,10 @@ const ChatPage = () => {
                   </button>
                 </div>
               )}
-            </li>
+            </div>
           ))
         }
-      </ul>
+      {/* </ul> */}
 
 
 

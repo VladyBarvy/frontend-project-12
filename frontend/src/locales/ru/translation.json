@@ -77,8 +77,8 @@
     "must_have_form": "Обязательное поле",
     "rename_channel_go": "Переименовать канал",
     "name_of_channel": "Название канала:",
-    "rename_go_one": "Переименовать",
-    "cancel_go": "Отмена"
+    "rename_go_one": "Отправить",
+    "cancel_go": "Отменить"
   },
   "messageform_page": {
     "esc_one": "Сообщение будет отправлено, когда восстановится связь",

@@ -442,7 +442,7 @@ const ChatPage = () => {
                 type="button"
                 role="button"
                 aria-label={`# ${channel.name}`}  // <-- заменить здесь
-                // aria-label={t(`chat.custom_channel`)}
+              // aria-label={t(`chat.custom_channel`)}
               >
                 # {channel.name}
               </button>
@@ -469,6 +469,16 @@ const ChatPage = () => {
                   padding: '5px',
                   zIndex: 10,
                 }}>
+
+                  <div
+                    role="heading"
+                    aria-level={3}
+                    style={{ padding: '4px 8px', fontWeight: 'bold', borderBottom: '1px solid #ccc', marginBottom: '5px' }}
+                  >
+                    Управление каналом
+                  </div>
+
+
                   <button onClick={() => {
                     openRenameModal(channel);
                     setOpenMenuChannelId(null);

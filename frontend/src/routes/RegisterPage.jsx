@@ -32,11 +32,11 @@ function RegisterPage() {
       localStorage.setItem('token', token)
       localStorage.setItem('username', username)
       navigate('/')
-    } 
+    }
     catch (error) {
       if (error.response?.status === 409) {
         setErrors({ username: t('registration_page.user_exist') })
-      } 
+      }
       else {
         setErrors({ username: t('registration_page.error_regi') })
       }

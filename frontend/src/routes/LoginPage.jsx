@@ -31,9 +31,9 @@ function LoginPage() {
       localStorage.setItem('username', values.username)
       dispatch(loginSuccess({ token, username: values.username }))
       navigate('/')
-    } 
+    }
     catch (err) {
-      console.log(err);
+      console.log(err)
       dispatch(loginFailure(t('login_page.login_error')))
     }
   }

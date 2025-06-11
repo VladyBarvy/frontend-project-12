@@ -7,10 +7,10 @@ const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (text.trim()) {
-      onSubmit(text.trim());
+      onSubmit(text.trim())
       setText('')
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="message-form">
@@ -18,7 +18,7 @@ const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
         type="text"
         aria-label={t('messageform_page.new_message') || 'Новое сообщение'}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={e => setText(e.target.value)}
         placeholder={isConnected ? t('messageform_page.write_message') : t('messageform_page.connect_me')}
         disabled={!isConnected || isSubmitting}
       />

@@ -11,18 +11,18 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
   const token = useSelector(state => state.auth.token)
   const { t } = useTranslation()
   const existingNames = useSelector(state =>
-    state.channels?.channels?.map((ch) => ch.name) || []
+    state.channels?.channels?.map(ch => ch.name) || [],
   )
   const filterProfanity = (text) => {
     if (!leoProfanity.list().length) {
-      leoProfanity.loadDictionary('ru');
+      leoProfanity.loadDictionary('ru')
       leoProfanity.add(leoProfanity.getDictionary('en'))
     }
     const filtered = leoProfanity.clean(text)
     if (filtered !== text) {
       toast.warn(t('chat.profanity_filtered'))
     }
-    return filtered;
+    return filtered
   }
   const RenameSchema = Yup.object().shape({
     name: Yup.string()
@@ -39,7 +39,7 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
       })
       toast.success(t('chat.channel_renamed'))
       onClose()
-    } 
+    }
     catch (err) {
       console.error('Ошибка при переименовании:', err)
       toast.error(t('chat.error_rename_channel'))

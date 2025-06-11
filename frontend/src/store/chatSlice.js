@@ -9,7 +9,7 @@ export const fetchChannels = createAsyncThunk(
       headers: { Authorization: `Bearer ${auth.token}` },
     })
     return response.data
-  }
+  },
 )
 
 export const fetchMessages = createAsyncThunk(
@@ -20,7 +20,7 @@ export const fetchMessages = createAsyncThunk(
       headers: { Authorization: `Bearer ${auth.token}` },
     })
     return response.data
-  }
+  },
 )
 
 const initialState = {
@@ -37,7 +37,7 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     setCurrentChannel: (state, action) => {
-      state.currentChannelId = action.payload;
+      state.currentChannelId = action.payload
     },
     socketConnected: (state) => {
       state.socketConnected = true
@@ -78,7 +78,7 @@ const chatSlice = createSlice({
         state.loading = false
         state.channels = action.payload
         const generalChannel = action.payload.find(ch =>
-          ch.name.toLowerCase() === 'general'
+          ch.name.toLowerCase() === 'general',
         )
         state.currentChannelId = generalChannel?.id || action.payload[0]?.id || null
       })
@@ -98,7 +98,7 @@ const chatSlice = createSlice({
         state.loading = false
         state.error = action.error.message
       })
-  }
+  },
 })
 
 export const {

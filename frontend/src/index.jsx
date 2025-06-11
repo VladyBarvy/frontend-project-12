@@ -9,8 +9,8 @@ initPromise.then(() => {
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <I18nextProvider i18n={i18n}>
-        <App />,
-      </I18nextProvider>,
+        <App />
+      </I18nextProvider>
     </StrictMode>,
   )
 })

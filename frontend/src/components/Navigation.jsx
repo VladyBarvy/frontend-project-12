@@ -4,7 +4,7 @@ import { logout } from '../store/authSlice'
 import './Navigation.css'
 
 function Navigation() {
-  const { isAuthenticated } = useSelector((state) => state.auth)
+  const { isAuthenticated } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogout = () => {

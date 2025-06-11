@@ -144,11 +144,11 @@ const ChatPage = () => {
     try {
       const filteredName = filterProfanity(name)
       const response = await axios.post('/api/v1/channels', {
-        name: filteredName
+        name: filteredName,
       },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        })
       const newChannel = response.data
       dispatch(setCurrentChannel(newChannel.id))
       toast.success(t('chat.channel_created'))
@@ -166,20 +166,21 @@ const ChatPage = () => {
       })
       closeDeleteConfirmModal()
       toast.success(t('chat.channel_deleted'))
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Ошибка при удалении канала:', err)
       toast.error(t('chat.error_go') + ' ' + t('chat.error_delete_channel'))
     }
   }
   const currentMessages = messages.filter(
-    msg => msg.channelId === currentChannelId
+    msg => msg.channelId === currentChannelId,
   )
   if (loading) return <div>{t('chat.loading_go')}</div>
-  if (error) 
-  return <div>{t('chat.error_go')}
-    {error}
-  </div>
-
+  if (error) {
+    return <div>{t('chat.error_go')}
+      {error}
+    </div>
+  }
   return (
     <div className="chat-container">
       <div className="channels-sidebar">
@@ -284,7 +285,8 @@ const ChatPage = () => {
                   <button onClick={() => {
                     openDeleteConfirmModal(channel)
                     setOpenMenuChannelId(null)
-                  }}>
+                  }}
+                  >
                     {t('chat.delete_channel_one')}
                   </button>
                 </div>
@@ -296,7 +298,8 @@ const ChatPage = () => {
         <div className="messages">
           {currentMessages.map(message => (
             <div key={message.id} className="message">
-              <strong>{message.username}
+              <strong>
+                {message.username}
                 :
               </strong>
               {message.body}

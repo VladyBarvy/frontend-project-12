@@ -5,32 +5,38 @@ const api = axios.create({
 })
 
 export default {
-  getChannels: (token) => api.get('/channels', {
+  getChannels: (token) => api.get('/channels',
+  {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }),
-  getMessages: (token) => api.get('/messages', {
+  getMessages: (token) => api.get('/messages',
+  {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }),
-  sendMessage: (token, message) => api.post('/messages', message, {
+  sendMessage: (token, message) => api.post('/messages', message,
+  {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }),
-  addChannel: (token, channel) => api.post('/channels', channel, {
+  addChannel: (token, channel) => api.post('/channels', channel,
+  {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }),
-  removeChannel: (token, channelId) => api.delete(`/channels/${channelId}`, {
+  removeChannel: (token, channelId) => api.delete(`/channels/${channelId}`,
+  {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }),
-  renameChannel: (token, channelId, name) => api.patch(`/channels/${channelId}`, { name }, {
+  renameChannel: (token, channelId, name) => api.patch(`/channels/${channelId}`, { name },
+  {
     headers: {
       Authorization: `Bearer ${token}`,
     },

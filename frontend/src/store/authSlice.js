@@ -15,10 +15,10 @@ const authSlice = createSlice({
     },
     loginSuccess(state, action) {
       const { token, username } = action.payload
-      state.token = token;
-      state.isAuthenticated = true;
-      state.loading = false;
-      state.error = null;
+      state.token = token
+      state.isAuthenticated = true
+      state.loading = false
+      state.error = null
       localStorage.setItem('token', token)
       localStorage.setItem('username', username)
     },

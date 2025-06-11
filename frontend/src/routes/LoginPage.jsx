@@ -16,22 +16,24 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string()
     .min(4, 'Пароль должен быть не менее 6 символов')
     .required('Обязательное поле'),
-});
+})
 
 function LoginPage() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { loading, error } = useSelector((state) => state.auth)
+  const { error } = useSelector(state => state.auth)
 
   const handleSubmit = async (values) => {
     try {
-      dispatch(loginStart());
+      dispatch(loginStart())
       const { token } = await login(values)
       localStorage.setItem('username', values.username)
       dispatch(loginSuccess({ token, username: values.username }))
-      navigate('/');
-    } catch (err) {
+      navigate('/')
+    } 
+    catch (err) {
+      console.log(err);
       dispatch(loginFailure(t('login_page.login_error')))
     }
   }

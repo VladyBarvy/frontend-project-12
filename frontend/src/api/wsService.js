@@ -31,7 +31,7 @@ export const initSocket = (dispatch, token) => {
       payload = { ...payload, username }
     }
     console.log('Received message from socket:', payload)
-    dispatch(addMessage(payload));
+    dispatch(addMessage(payload))
   })
   socket.on('newChannel', (payload) => {
     dispatch({

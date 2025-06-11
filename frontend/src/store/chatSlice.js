@@ -3,23 +3,23 @@ import axios from 'axios'
 
 export const fetchChannels = createAsyncThunk(
   'chat/fetchChannels',
-  async (_, { getState },) => {
+  async (_, { getState }) => {
     const { auth } = getState()
     const response = await axios.get('/api/v1/channels', {
       headers: { Authorization: `Bearer ${auth.token}` },
-    });
-    return response.data;
+    })
+    return response.data
   }
 )
 
 export const fetchMessages = createAsyncThunk(
   'chat/fetchMessages',
-  async (_, { getState },) => {
+  async (_, { getState }) => {
     const { auth } = getState()
     const response = await axios.get('/api/v1/messages', {
       headers: { Authorization: `Bearer ${auth.token}` },
-    });
-    return response.data;
+    })
+    return response.data
   }
 )
 
@@ -40,10 +40,10 @@ const chatSlice = createSlice({
       state.currentChannelId = action.payload;
     },
     socketConnected: (state) => {
-      state.socketConnected = true;
+      state.socketConnected = true
     },
     socketDisconnected: (state) => {
-      state.socketConnected = false;
+      state.socketConnected = false
     },
     addMessage: (state, action) => {
       state.messages.push(action.payload)
@@ -71,13 +71,13 @@ const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChannels.pending, (state) => {
-        state.loading = true
-        state.error = null
-      })
+      state.loading = true
+      state.error = null
+    })
       .addCase(fetchChannels.fulfilled, (state, action) => {
         state.loading = false
-        state.channels = action.payload;
-        const generalChannel = action.payload.find(ch => 
+        state.channels = action.payload
+        const generalChannel = action.payload.find(ch =>
           ch.name.toLowerCase() === 'general'
         )
         state.currentChannelId = generalChannel?.id || action.payload[0]?.id || null

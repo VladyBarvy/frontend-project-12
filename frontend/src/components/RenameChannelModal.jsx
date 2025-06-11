@@ -8,19 +8,19 @@ import { toast } from 'react-toastify'
 import leoProfanity from 'leo-profanity'
 
 const RenameChannelModal = ({ channelId, initialName, onClose }) => {
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector(state => state.auth.token)
   const { t } = useTranslation()
-  const existingNames = useSelector((state) =>
+  const existingNames = useSelector(state =>
     state.channels?.channels?.map((ch) => ch.name) || []
   )
   const filterProfanity = (text) => {
     if (!leoProfanity.list().length) {
       leoProfanity.loadDictionary('ru');
-      leoProfanity.add(leoProfanity.getDictionary('en'));
+      leoProfanity.add(leoProfanity.getDictionary('en'))
     }
-    const filtered = leoProfanity.clean(text);
+    const filtered = leoProfanity.clean(text)
     if (filtered !== text) {
-      toast.warn(t('chat.profanity_filtered'));
+      toast.warn(t('chat.profanity_filtered'))
     }
     return filtered;
   }
@@ -28,7 +28,7 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
     name: Yup.string()
       .min(3, t('rename_channel_page.symb_3'))
       .max(20, t('rename_channel_page.symb_20'))
-      .notOneOf(existingNames.filter((name) => name !== initialName), t('rename_channel_page.channel_name_exist'))
+      .notOneOf(existingNames.filter(name => name !== initialName), t('rename_channel_page.channel_name_exist'))
       .required(t('rename_channel_page.must_have_form')),
   })
   const handleRename = async (values, { setSubmitting }) => {
@@ -39,10 +39,12 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
       })
       toast.success(t('chat.channel_renamed'))
       onClose()
-    } catch (err) {
+    } 
+    catch (err) {
       console.error('Ошибка при переименовании:', err)
       toast.error(t('chat.error_rename_channel'))
-    } finally {
+    }
+    finally {
       setSubmitting(false)
     }
   }
@@ -72,7 +74,7 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
         )}
       </Formik>
     </Modal>
-  );
-};
+  )
+}
 
 export default RenameChannelModal

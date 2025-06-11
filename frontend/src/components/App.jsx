@@ -1,20 +1,18 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '../store/store.js';
-import HomePage from "../routes/HomePage.jsx";
-import LoginPage from "../routes/LoginPage.jsx";
-import NotFoundPage from '../routes/NotFoundPage.jsx';
-import ChatPage from './ChatPage';
-import Navigation from './Navigation';
-import RegisterPage from '../routes/RegisterPage.jsx';
-import "./App.css";
-import ProtectedRoute from './ProtectedRoute.jsx';
-import { useSelector } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from '../store/store.js'
+import LoginPage from "../routes/LoginPage.jsx"
+import NotFoundPage from '../routes/NotFoundPage.jsx'
+import ChatPage from './ChatPage'
+import Navigation from './Navigation'
+import RegisterPage from '../routes/RegisterPage.jsx'
+import "./App.css"
+import ProtectedRoute from './ProtectedRoute.jsx'
+import { useSelector } from 'react-redux'
 
 function RootRoute() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-
-  return isAuthenticated ? <ChatPage /> : <LoginPage />;
+  const { isAuthenticated } = useSelector(state => state.auth)
+  return isAuthenticated ? <ChatPage /> : <LoginPage />
 }
 
 function App() {
@@ -39,7 +37,7 @@ function App() {
       </BrowserRouter>
     </Provider>
 
-  );
+  )
 }
 
-export default App;
+export default App

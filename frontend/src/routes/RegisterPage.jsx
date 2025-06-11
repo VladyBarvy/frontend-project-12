@@ -8,9 +8,9 @@ import './RegisterPage.css'
 import { useTranslation } from 'react-i18next'
 
 function RegisterPage() {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const RegisterSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, t('registration_page.symbol_3_20'))
@@ -22,25 +22,27 @@ function RegisterPage() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], t('registration_page.password_wrong'))
       .required(t('registration_page.must_have_form')),
-  });
+  })
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const { username, password } = values;
-      const response = await axios.post('/api/v1/signup', { username, password });
-      const { token } = response.data;
-      dispatch(loginSuccess({ token, username }));
-      localStorage.setItem('token', token);
-      localStorage.setItem('username', username);
-      navigate('/');
-    } catch (error) {
+      const { username, password } = values
+      const response = await axios.post('/api/v1/signup', { username, password })
+      const { token } = response.data
+      dispatch(loginSuccess({ token, username }))
+      localStorage.setItem('token', token)
+      localStorage.setItem('username', username)
+      navigate('/')
+    } 
+    catch (error) {
       if (error.response?.status === 409) {
-        setErrors({ username: t('registration_page.user_exist') });
-      } else {
-        setErrors({ username: t('registration_page.error_regi') });
+        setErrors({ username: t('registration_page.user_exist') })
+      } 
+      else {
+        setErrors({ username: t('registration_page.error_regi') })
       }
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   return (
     <div className="page">
@@ -50,7 +52,7 @@ function RegisterPage() {
         validationSchema={RegisterSchema}
         onSubmit={handleSubmit}
       >
-        {({ errors, touched, isSubmitting }) => (
+        {({ isSubmitting }) => (
           <Form className="register-form">
             <div className="form-group">
               <Field id="username" type="text" name="username" placeholder={t('registration_page.symbol_3_20')} autoComplete="username" required />
@@ -74,10 +76,11 @@ function RegisterPage() {
         )}
       </Formik>
       <p>
-        Уже есть аккаунт? <Link to="/login">{t('registration_page.enter')}</Link>
+        Уже есть аккаунт?
+        <Link to="/login">{t('registration_page.enter')}</Link>
       </p>
     </div>
-  );
+  )
 }
 
 export default RegisterPage

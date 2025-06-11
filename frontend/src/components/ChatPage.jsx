@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService'
+import { initSocket, closeSocket } from '../api/wsService'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -31,30 +31,30 @@ const ChatPage = () => {
     messages,
     loading,
     error,
-    socketConnected
+    socketConnected,
   } = useSelector(state => state.chat)
   const [openMenuChannelId, setOpenMenuChannelId] = useState(null)
   const toggleChannelMenu = (channelId) => {
     if (openMenuChannelId === channelId) {
-      setOpenMenuChannelId(null);
-    } else {
+      setOpenMenuChannelId(null)
+    }
+    else {
       setOpenMenuChannelId(channelId)
     }
-  };
+  }
   const filterProfanity = (text) => {
     if (!leoProfanity.list().length) {
       leoProfanity.loadDictionary('ru')
       leoProfanity.add(leoProfanity.getDictionary('en'))
-
     }
     const originalText = text
     const filteredText = leoProfanity.clean(text)
     if (filteredText !== originalText) {
-      toast.warn(t('chat.profanity_filtered'));
+      toast.warn(t('chat.profanity_filtered'))
     }
 
     return filteredText
-  };
+  }
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.channel-menu') && !event.target.closest('.channel-menu-button')) {
@@ -106,7 +106,7 @@ const ChatPage = () => {
     initSocket(dispatch, token)
     return () => {
       closeSocket()
-    };
+    }
   }, [dispatch, token, t])
   const handleSendMessage = async (text) => {
     if (!text.trim() || !currentChannelId) return

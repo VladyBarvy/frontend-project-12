@@ -48,7 +48,7 @@ function LoginPage() {
         validationSchema={LoginSchema}
         onSubmit={handleSubmit}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form className="login-form">
             <div className="form-group">
 
@@ -95,8 +95,10 @@ function LoginPage() {
               )}
             </div>
 
-            <button type="submit" disabled={loading} className="submit-btn">
-              {loading ? t('login_page.enter_go') : t('login_page.enter_lets_go')}
+            
+
+            <button type="submit"  className="submit-btn" disabled={isSubmitting}> 
+              {isSubmitting ? t('login_page.enter_go') : t('login_page.enter_lets_go')}
             </button>
           </Form>
         )}

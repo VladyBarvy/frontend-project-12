@@ -131,6 +131,22 @@
   flex-direction: column;
   gap: 5px;
   z-index: 100;
+  transition: all 0.3s ease;
+}
+
+
+
+.channel-menu.hidden {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none; /* вот это важно */
+}
+
+.channel-menu.visible {
+  visibility: visible;
+  height: auto;
+  pointer-events: auto;
 }
 
 

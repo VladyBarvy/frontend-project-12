@@ -426,23 +426,32 @@ const ChatPage = () => {
           );
         })}
 
-        {/* Список остальных каналов */}
-        {/* <ul> */}
-        {channels
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* {channels
           .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
           .map(channel => (
             <div key={channel.id} className={channel.id === currentChannelId ? 'active' : ''}>
-              {/* <span onClick={() => dispatch(setCurrentChannel(channel.id))}>
-                # {channel.name}
-              </span> */}
+
 
               <button
                 className="channel-button"
                 onClick={() => dispatch(setCurrentChannel(channel.id))}
                 type="button"
                 role="button"
-                aria-label={`# ${channel.name}`}  // <-- заменить здесь
-              // aria-label={t(`chat.custom_channel`)}
+                aria-label={`# ${channel.name}`} 
+              
               >
                 # {channel.name}
               </button>
@@ -458,18 +467,116 @@ const ChatPage = () => {
                 ⋮
               </button>
 
-              {/* {channel.removable && openMenuChannelId === channel.id */}
 
-              
-              {channel.removable && (openMenuChannelId === channel.id || currentChannelId === channel.id) && (
-                <div className="channel-menu" style={{
-                  position: 'absolute',
-                  background: 'white',
-                  border: '1px solid #ccc',
-                  padding: '5px',
-                  zIndex: 10,
-                }}>
+              <div key={channel.id} className={channel.id === currentChannelId ? 'active' : ''} style={{ position: 'relative' }}>
+                <button
+                  className="channel-button"
+                  onClick={() => dispatch(setCurrentChannel(channel.id))}
+                  type="button"
+                  aria-label={`# ${channel.name}`}
+                >
+                  # {channel.name}
+                </button>
 
+                <button
+                  className="channel-menu-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleChannelMenu(channel.id);
+                  }}
+                  aria-label={t('chat.menu_of_channel')}
+                >
+                  ⋮
+                </button>
+
+                {channel.removable && (
+                  <div
+                    className={`channel-menu ${openMenuChannelId === channel.id ? 'visible' : 'hidden'}`}
+                    style={{
+                      position: 'absolute',
+                      background: 'white',
+                      border: '1px solid #ccc',
+                      padding: '5px',
+                      zIndex: 10,
+                    }}
+                  >
+                    <div
+                      role="heading"
+                      aria-level={3}
+                      style={{ padding: '4px 8px', fontWeight: 'bold', borderBottom: '1px solid #ccc', marginBottom: '5px' }}
+                    >
+                      Управление каналом
+                    </div>
+
+                    <button onClick={() => {
+                      openRenameModal(channel);
+                      setOpenMenuChannelId(null);
+                    }}>
+                      {t('chat.rename_channel_one')}
+                    </button>
+                    <button onClick={() => {
+                      openDeleteConfirmModal(channel);
+                      setOpenMenuChannelId(null);
+                    }}>
+                      {t('chat.delete_channel_one')}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+
+
+
+
+
+
+            </div>
+          ))
+        } */}
+
+
+
+
+
+
+
+
+
+        {channels
+          .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
+          .map(channel => (
+            <div key={channel.id} className={channel.id === currentChannelId ? 'active' : ''} style={{ position: 'relative' }}>
+              <button
+                className="channel-button"
+                onClick={() => dispatch(setCurrentChannel(channel.id))}
+                type="button"
+                aria-label={`# ${channel.name}`}
+              >
+                # {channel.name}
+              </button>
+
+              <button
+                className="channel-menu-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleChannelMenu(channel.id);
+                }}
+                aria-label={t('chat.menu_of_channel')}
+              >
+                ⋮
+              </button>
+
+              {channel.removable && (
+                <div
+                  className={`channel-menu ${openMenuChannelId === channel.id ? 'visible' : 'hidden'}`}
+                  style={{
+                    position: 'absolute',
+                    background: 'white',
+                    border: '1px solid #ccc',
+                    padding: '5px',
+                    zIndex: 10,
+                  }}
+                >
                   <div
                     role="heading"
                     aria-level={3}
@@ -477,7 +584,6 @@ const ChatPage = () => {
                   >
                     Управление каналом
                   </div>
-
 
                   <button onClick={() => {
                     openRenameModal(channel);
@@ -496,6 +602,21 @@ const ChatPage = () => {
             </div>
           ))
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {/* </ul> */}
 
 

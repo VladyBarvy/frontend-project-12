@@ -114,7 +114,6 @@
   margin-left: 8px;
 }
 
-
 .channels-sidebar {
   position: relative;
 }
@@ -134,13 +133,11 @@
   transition: all 0.3s ease;
 }
 
-
-
 .channel-menu.hidden {
-  opacity: 0;               /* вместо visibility: hidden */
-  pointer-events: none;     /* чтобы пользователь не мог кликнуть */
-  height: auto;             /* не ограничиваем высоту, чтобы элемент был в DOM */
-  overflow: visible;        /* чтобы содержимое не обрезалось */
+  opacity: 0;
+  pointer-events: none; 
+  height: auto;
+  overflow: visible;
   transition: opacity 0.3s ease;
 }
 
@@ -173,7 +170,6 @@
   outline: none;
 }
 
-/* Стили для кнопок дефолтных каналов */
 .channel-button {
   display: block;
   width: 100%;
@@ -198,17 +194,17 @@
 
 .channels-header {
   display: flex;
-  align-items: center;      /* вертикальное выравнивание */
-  justify-content: space-between; /* заголовок слева, кнопка справа */
-  margin-bottom: 1rem;      /* отступ снизу, по желанию */
+  align-items: center; 
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .channels-header h3 {
-  margin: 0;                /* убрать отступы у заголовка */
+  margin: 0;
 }
 
 .channels-header button {
-  font-size: 1.5rem;        /* размер кнопки "+", по желанию */
+  font-size: 1.5rem;
   line-height: 1;
   padding: 0 0.5rem;
   cursor: pointer;
@@ -217,6 +213,6 @@
   color: #333;
 }
 .channels-header button:hover {
-  color: #007bff;           /* цвет при наведении */
+  color: #007bff;
 }
 

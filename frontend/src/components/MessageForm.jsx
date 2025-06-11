@@ -23,8 +23,8 @@ const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
         placeholder={isConnected ? t('messageform_page.write_message') : t('messageform_page.connect_me')}
         disabled={!isConnected || isSubmitting}
       />
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         disabled={!isConnected || isSubmitting || !text.trim()}
       >
         {isSubmitting ? t('messageform_page.sending') : t('messageform_page.send')}

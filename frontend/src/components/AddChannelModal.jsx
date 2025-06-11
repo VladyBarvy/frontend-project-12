@@ -1,4 +1,4 @@
-import Modal from 'react-modal'; // или любой другой пакет
+import Modal from 'react-modal';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
@@ -24,14 +24,6 @@ const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => 
         }}
       >
         {({ errors, touched }) => (
-          // <Form>
-          //   <Field name="name" placeholder="Имя канала" autoFocus />
-          //   {errors.name && touched.name && <div className="error">{errors.name}</div>}
-
-          //   <button type="submit">Добавить</button>
-          //   <button type="button" onClick={onRequestClose}>Отмена</button>
-          // </Form>
-
           <Form>
             <label htmlFor="channelName">Имя канала</label>
             <Field id="channelName" name="name" placeholder="Имя канала" autoFocus />

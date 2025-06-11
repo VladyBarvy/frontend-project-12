@@ -10,17 +10,14 @@ import leoProfanity from 'leo-profanity';
 const RenameChannelModal = ({ channelId, initialName, onClose }) => {
   const token = useSelector((state) => state.auth.token);
   const { t } = useTranslation();
-  // Безопасное извлечение имён каналов
   const existingNames = useSelector((state) =>
     state.channels?.channels?.map((ch) => ch.name) || []
   );
-
   const filterProfanity = (text) => {
     if (!leoProfanity.list().length) {
       leoProfanity.loadDictionary('ru');
       leoProfanity.add(leoProfanity.getDictionary('en'));
     }
-  
     const filtered = leoProfanity.clean(text);
     if (filtered !== text) {
       toast.warn(t('chat.profanity_filtered'));
@@ -35,30 +32,14 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
       .notOneOf(existingNames.filter((name) => name !== initialName), t('rename_channel_page.channel_name_exist'))
       .required(t('rename_channel_page.must_have_form')),
   });
-
-  // const handleRename = async (values, { setSubmitting }) => {
-  //   try {
-  //     await axios.patch(`/api/v1/channels/${channelId}`, { name: values.name }, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     toast.success(t('chat.channel_renamed'));
-  //     onClose();
-  //   } catch (err) {
-  //     console.error('Ошибка при переименовании:', err);
-  //     toast.error(t('chat.error_rename_channel'));
-  //   } finally {
-  //     setSubmitting(false);
-  //   }
-  // };
-
   const handleRename = async (values, { setSubmitting }) => {
     try {
       const cleanName = filterProfanity(values.name);
-  
+
       await axios.patch(`/api/v1/channels/${channelId}`, { name: cleanName }, {
         headers: { Authorization: `Bearer ${token}` },
       });
-  
+
       toast.success(t('chat.channel_renamed'));
       onClose();
     } catch (err) {
@@ -84,10 +65,10 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
             <ErrorMessage name="name" component="div" className="error" />
             <div>
               <button type="submit" disabled={isSubmitting}>
-              {t('rename_channel_page.rename_go_one')}
+                {t('rename_channel_page.rename_go_one')}
               </button>
               <button type="button" onClick={onClose}>
-              {t('rename_channel_page.cancel_go')}
+                {t('rename_channel_page.cancel_go')}
               </button>
             </div>
           </Form>
@@ -98,4 +79,3 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
 };
 
 export default RenameChannelModal;
-

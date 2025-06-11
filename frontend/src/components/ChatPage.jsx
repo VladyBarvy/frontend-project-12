@@ -458,10 +458,10 @@ const ChatPage = () => {
                 ⋮
               </button>
 
+              {/* {channel.removable && openMenuChannelId === channel.id */}
 
-
-
-              {channel.removable && openMenuChannelId === channel.id && (
+              
+              {channel.removable && (openMenuChannelId === channel.id || currentChannelId === channel.id) && (
                 <div className="channel-menu" style={{
                   position: 'absolute',
                   background: 'white',

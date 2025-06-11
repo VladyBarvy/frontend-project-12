@@ -176,3 +176,27 @@
   background-color: #e0e0e0;
   font-weight: bold;
 }
+
+.channels-header {
+  display: flex;
+  align-items: center;      /* вертикальное выравнивание */
+  justify-content: space-between; /* заголовок слева, кнопка справа */
+  margin-bottom: 1rem;      /* отступ снизу, по желанию */
+}
+
+.channels-header h3 {
+  margin: 0;                /* убрать отступы у заголовка */
+}
+
+.channels-header button {
+  font-size: 1.5rem;        /* размер кнопки "+", по желанию */
+  line-height: 1;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #333;
+}
+.channels-header button:hover {
+  color: #007bff;           /* цвет при наведении */
+}

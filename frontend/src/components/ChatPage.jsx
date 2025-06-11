@@ -335,14 +335,49 @@ const ChatPage = () => {
   if (loading) return <div>{t('chat.loading_go')}</div>;
   if (error) return <div>{t('chat.error_go')} {error}</div>;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="chat-container">
       <div className="channels-sidebar">
+
+        <div className="channels-header">
+          <h3>{t('chat.list_of_channel_one')}</h3>
+          <button onClick={openAddChannelModal} aria-label={t('chat.add_channel_one')}>
+            +
+          </button>
+        </div>
+
+        {/*   
         <h3>{t('chat.list_of_channel_one')}</h3>
 
+        <button onClick={openAddChannelModal} aria-label={t('chat.add_channel_one')}>
+          +
+        </button> */}
 
 
-{/* 
+
+
+
+
+
+
+
+
+        {/* 
         
         <button
           className={`channel-button ${currentChannelId === 'general' ? 'active' : ''}`}
@@ -370,29 +405,29 @@ const ChatPage = () => {
 
 
 
-      {/* Отдельные кнопки для дефолтных каналов */}
-      {DEFAULT_CHANNELS.map(channelName => {
-        const channel = channels.find(ch => ch.name.toLowerCase() === channelName);
-        
-        if (!channel) return null;
-        
-        return (
-          <button
-            key={channel.id}
-            className={`channel-button ${currentChannelId === channel.id ? 'active' : ''}`}
-            onClick={() => dispatch(setCurrentChannel(channel.id))}
-            // name={channelName}
-            role="button"
-            type="button"
-            aria-label={t(`chat.${channelName}_channel`)}
-          >
-            {t(`chat.${channelName}_channel`)}
-          </button>
-        );
-      })}
+        {/* Отдельные кнопки для дефолтных каналов */}
+        {DEFAULT_CHANNELS.map(channelName => {
+          const channel = channels.find(ch => ch.name.toLowerCase() === channelName);
 
-      {/* Список остальных каналов */}
-      {/* <ul> */}
+          if (!channel) return null;
+
+          return (
+            <button
+              key={channel.id}
+              className={`channel-button ${currentChannelId === channel.id ? 'active' : ''}`}
+              onClick={() => dispatch(setCurrentChannel(channel.id))}
+              // name={channelName}
+              role="button"
+              type="button"
+              aria-label={t(`chat.${channelName}_channel`)}
+            >
+              {t(`chat.${channelName}_channel`)}
+            </button>
+          );
+        })}
+
+        {/* Список остальных каналов */}
+        {/* <ul> */}
         {channels
           .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
           .map(channel => (
@@ -400,10 +435,10 @@ const ChatPage = () => {
               {/* <span onClick={() => dispatch(setCurrentChannel(channel.id))}>
                 # {channel.name}
               </span> */}
-              
-              <button 
-                className="channel-button" 
-                onClick={()=> dispatch(setCurrentChannel(channel.id))} 
+
+              <button
+                className="channel-button"
+                onClick={() => dispatch(setCurrentChannel(channel.id))}
                 type="button"
                 role="button"
                 aria-label={t(`chat.custom_channel`)}
@@ -450,7 +485,7 @@ const ChatPage = () => {
             </div>
           ))
         }
-      {/* </ul> */}
+        {/* </ul> */}
 
 
 
@@ -611,7 +646,7 @@ const ChatPage = () => {
           channels={channels}
         />
 
-        <button onClick={openAddChannelModal}>{t('chat.add_channel_one')}</button>
+        {/* <button onClick={openAddChannelModal}>{t('chat.add_channel_one')}</button> */}
 
 
         <MessageForm

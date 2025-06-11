@@ -5,9 +5,9 @@ import { Formik, Form, Field } from 'formik';
 const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => {
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, 'Минимум 3 символа')
-      .max(20, 'Максимум 20 символов')
-      .notOneOf(channels.map(c => c.name), 'Такое имя уже существует')
+      .min(3, 'От 3 до 20 символов')
+      .max(20, 'От 3 до 20 символов')
+      .notOneOf(channels.map(c => c.name), 'Должно быть уникальным')
       .required('Обязательное поле'),
   });
 

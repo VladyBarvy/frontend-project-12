@@ -5,13 +5,13 @@ const api = axios.create({
 })
 
 export default {
-  getChannels: (token) => api.get('/channels',
+  getChannels: token => api.get('/channels',
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }),
-  getMessages: (token) => api.get('/messages',
+  getMessages: token => api.get('/messages',
     {
       headers: {
         Authorization: `Bearer ${token}`,

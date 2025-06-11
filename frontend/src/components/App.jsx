@@ -27,8 +27,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route
             path="/chat"
-            element=
-            {
+            element={
               <ProtectedRoute>
                 <ChatPage />
               </ProtectedRoute>

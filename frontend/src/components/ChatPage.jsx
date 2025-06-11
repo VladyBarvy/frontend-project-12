@@ -93,11 +93,13 @@ const ChatPage = () => {
       try {
         await dispatch(fetchChannels()).unwrap()
         await dispatch(fetchMessages()).unwrap()
-      } catch (err) {
+      }
+      catch (err) {
         console.error('Ошибка при загрузке данных:', err)
         if (!navigator.onLine) {
-          toast.error(t('chat.network_error'));
-        } else {
+          toast.error(t('chat.network_error'))
+        }
+        else {
           toast.error(`${t('chat.error_go')} ${t('chat.load_data_error')}`)
         }
       }
@@ -129,8 +131,10 @@ const ChatPage = () => {
       }, {
         headers: { Authorization: `Bearer ${token}` },
       })
+      console.log(response)
       dispatch(removeMessage(tempId))
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Ошибка отправки:', err)
       dispatch(updateMessageStatus({ id: tempId, status: 'error' }))
       toast.error(t('chat.error_go') + ' ' + t('chat.message_send_error'))
@@ -141,36 +145,38 @@ const ChatPage = () => {
       const filteredName = filterProfanity(name)
       const response = await axios.post('/api/v1/channels', {
         name: filteredName
-      }, {
+      },
+      {
         headers: { Authorization: `Bearer ${token}` },
       })
       const newChannel = response.data
       dispatch(setCurrentChannel(newChannel.id))
       toast.success(t('chat.channel_created'))
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Ошибка добавления канала:', error)
       toast.error(t('chat.error_create_channel'))
     }
   }
   const handleDeleteChannel = async () => {
-    if (!channelToEdit) return;
+    if (!channelToEdit) return
     try {
       await axios.delete(`/api/v1/channels/${channelToEdit.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      closeDeleteConfirmModal();
-      toast.success(t('chat.channel_deleted'));
+      closeDeleteConfirmModal()
+      toast.success(t('chat.channel_deleted'))
 
     } catch (err) {
-      console.error('Ошибка при удалении канала:', err);
-      toast.error(t('chat.error_go') + ' ' + t('chat.error_delete_channel'));
+      console.error('Ошибка при удалении канала:', err)
+      toast.error(t('chat.error_go') + ' ' + t('chat.error_delete_channel'))
     }
   }
   const currentMessages = messages.filter(
     msg => msg.channelId === currentChannelId
   )
-  if (loading) return <div>{t('chat.loading_go')}</div>;
-  if (error) return <div>{t('chat.error_go')} {error}</div>;
+  if (loading) return <div>{t('chat.loading_go')}</div>
+  if (error) return <div>{t('chat.error_go')} {error}</div>
 
   return (
     <div className="chat-container">
@@ -182,8 +188,8 @@ const ChatPage = () => {
           </button>
         </div>
         {DEFAULT_CHANNELS.map(channelName => {
-          const channel = channels.find(ch => ch.name.toLowerCase() === channelName);
-          if (!channel) return null;
+          const channel = channels.find(ch => ch.name.toLowerCase() === channelName)
+          if (!channel) return null
           return (
             <button
               key={channel.id}
@@ -220,8 +226,8 @@ const ChatPage = () => {
                 <button
                   className="channel-menu-button"
                   onClick={(e) => {
-                    e.stopPropagation();
-                    toggleChannelMenu(channel.id);
+                    e.stopPropagation()
+                    toggleChannelMenu(channel.id)
                   }}
                   aria-label={t('chat.menu_of_channel')}
                   style={{ marginLeft: '8px' }}
@@ -267,8 +273,8 @@ const ChatPage = () => {
                   </div>
 
                   <button onClick={() => {
-                    openRenameModal(channel);
-                    setOpenMenuChannelId(null);
+                    openRenameModal(channel)
+                    setOpenMenuChannelId(null)
                   }}>
                     {t('chat.rename_channel_one')}
                   </button>

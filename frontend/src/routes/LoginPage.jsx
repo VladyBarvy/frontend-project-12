@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import './LoginPage.css'
 import { useTranslation } from 'react-i18next'
 
-// Схема валидации
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
     .min(3, 'Слишком короткий логин!')
@@ -28,14 +27,14 @@ function LoginPage() {
   const handleSubmit = async (values) => {
     try {
       dispatch(loginStart());
-      const { token } = await login(values);
-      localStorage.setItem('username', values.username);
-      dispatch(loginSuccess({ token, username: values.username }));
+      const { token } = await login(values)
+      localStorage.setItem('username', values.username)
+      dispatch(loginSuccess({ token, username: values.username }))
       navigate('/');
     } catch (err) {
-      dispatch(loginFailure(t('login_page.login_error')));
+      dispatch(loginFailure(t('login_page.login_error')))
     }
-  };
+  }
 
   return (
     <div className="login-page">
@@ -74,10 +73,11 @@ function LoginPage() {
         )}
       </Formik>
       <p className="register-link">
-        Нет аккаунта? <Link to="/signup">{t('login_page.sign_up_please')}</Link>
+        Нет аккаунта?
+        <Link to="/signup">{t('login_page.sign_up_please')}</Link>
       </p>
     </div>
-  );
+  )
 }
 
 export default LoginPage

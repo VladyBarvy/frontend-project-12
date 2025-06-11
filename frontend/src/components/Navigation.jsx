@@ -4,13 +4,13 @@ import { logout } from '../store/authSlice'
 import './Navigation.css'
 
 function Navigation() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
+    dispatch(logout())
+    navigate('/login')
+  }
 
   return (
     <nav className="nav">
@@ -35,8 +35,7 @@ function Navigation() {
         )}
       </ul>
     </nav>
-  );
+  )
 }
 
 export default Navigation
-

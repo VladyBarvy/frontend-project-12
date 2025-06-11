@@ -1,15 +1,14 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
-  const [text, setText] = React.useState('');
-  const { t } = useTranslation();
-
+  const [text, setText] = React.useState('')
+  const { t } = useTranslation()
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (text.trim()) {
       onSubmit(text.trim());
-      setText('');
+      setText('')
     }
   };
 
@@ -35,7 +34,7 @@ const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
         </div>
       )}
     </form>
-  );
-};
+  )
+}
 
-export default MessageForm;
+export default MessageForm

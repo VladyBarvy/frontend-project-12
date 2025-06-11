@@ -1,27 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 export const fetchChannels = createAsyncThunk(
   'chat/fetchChannels',
-  async (_, { getState }) => {
-    const { auth } = getState();
+  async (_, { getState },) => {
+    const { auth } = getState()
     const response = await axios.get('/api/v1/channels', {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     return response.data;
   }
-);
+)
 
 export const fetchMessages = createAsyncThunk(
   'chat/fetchMessages',
-  async (_, { getState }) => {
-    const { auth } = getState();
+  async (_, { getState },) => {
+    const { auth } = getState()
     const response = await axios.get('/api/v1/messages', {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     return response.data;
   }
-);
+)
 
 const initialState = {
   channels: [],
@@ -30,7 +30,7 @@ const initialState = {
   loading: false,
   error: null,
   socketConnected: false,
-};
+}
 
 const chatSlice = createSlice({
   name: 'chat',
@@ -46,60 +46,60 @@ const chatSlice = createSlice({
       state.socketConnected = false;
     },
     addMessage: (state, action) => {
-      state.messages.push(action.payload);
+      state.messages.push(action.payload)
     },
     addChannel: (state, action) => {
-      state.channels.push(action.payload);
+      state.channels.push(action.payload)
     },
     removeChannel: (state, action) => {
-      state.channels = state.channels.filter(ch => ch.id !== action.payload.id);
+      state.channels = state.channels.filter(ch => ch.id !== action.payload.id)
       if (state.currentChannelId === action.payload.id) {
-        state.currentChannelId = state.channels[0]?.id || null;
+        state.currentChannelId = state.channels[0]?.id || null
       }
     },
     renameChannel: (state, action) => {
-      const channel = state.channels.find(ch => ch.id === action.payload.id);
-      if (channel) channel.name = action.payload.name;
+      const channel = state.channels.find(ch => ch.id === action.payload.id)
+      if (channel) channel.name = action.payload.name
     },
     removeMessage: (state, action) => {
-      state.messages = state.messages.filter(msg => msg.id !== action.payload);
+      state.messages = state.messages.filter(msg => msg.id !== action.payload)
     },
     updateMessageStatus: (state, action) => {
-      const msg = state.messages.find(m => m.id === action.payload.id);
-      if (msg) msg.status = action.payload.status;
+      const msg = state.messages.find(m => m.id === action.payload.id)
+      if (msg) msg.status = action.payload.status
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChannels.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(fetchChannels.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loading = false
         state.channels = action.payload;
         const generalChannel = action.payload.find(ch => 
           ch.name.toLowerCase() === 'general'
-        );
-        state.currentChannelId = generalChannel?.id || action.payload[0]?.id || null;
+        )
+        state.currentChannelId = generalChannel?.id || action.payload[0]?.id || null
       })
       .addCase(fetchChannels.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
+        state.loading = false
+        state.error = action.error.message
       })
       .addCase(fetchMessages.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(fetchMessages.fulfilled, (state, action) => {
-        state.loading = false;
-        state.messages = action.payload;
+        state.loading = false
+        state.messages = action.payload
       })
       .addCase(fetchMessages.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+        state.loading = false
+        state.error = action.error.message
+      })
   }
-});
+})
 
 export const {
   setCurrentChannel,
@@ -111,6 +111,6 @@ export const {
   renameChannel,
   removeMessage,
   updateMessageStatus,
-} = chatSlice.actions;
+} = chatSlice.actions
 
-export default chatSlice.reducer;
+export default chatSlice.reducer

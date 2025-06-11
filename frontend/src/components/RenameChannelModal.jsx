@@ -8,11 +8,11 @@ import { toast } from 'react-toastify'
 import leoProfanity from 'leo-profanity'
 
 const RenameChannelModal = ({ channelId, initialName, onClose }) => {
-  const token = useSelector((state) => state.auth.token);
-  const { t } = useTranslation();
+  const token = useSelector((state) => state.auth.token)
+  const { t } = useTranslation()
   const existingNames = useSelector((state) =>
     state.channels?.channels?.map((ch) => ch.name) || []
-  );
+  )
   const filterProfanity = (text) => {
     if (!leoProfanity.list().length) {
       leoProfanity.loadDictionary('ru');
@@ -23,29 +23,29 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
       toast.warn(t('chat.profanity_filtered'));
     }
     return filtered;
-  };
+  }
   const RenameSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, t('rename_channel_page.symb_3'))
       .max(20, t('rename_channel_page.symb_20'))
       .notOneOf(existingNames.filter((name) => name !== initialName), t('rename_channel_page.channel_name_exist'))
       .required(t('rename_channel_page.must_have_form')),
-  });
+  })
   const handleRename = async (values, { setSubmitting }) => {
     try {
-      const cleanName = filterProfanity(values.name);
+      const cleanName = filterProfanity(values.name)
       await axios.patch(`/api/v1/channels/${channelId}`, { name: cleanName }, {
         headers: { Authorization: `Bearer ${token}` },
-      });
-      toast.success(t('chat.channel_renamed'));
-      onClose();
+      })
+      toast.success(t('chat.channel_renamed'))
+      onClose()
     } catch (err) {
-      console.error('Ошибка при переименовании:', err);
-      toast.error(t('chat.error_rename_channel'));
+      console.error('Ошибка при переименовании:', err)
+      toast.error(t('chat.error_rename_channel'))
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   return (
     <Modal isOpen onRequestClose={onClose}>

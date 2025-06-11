@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService';
-import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import leoProfanity from 'leo-profanity';
-const DEFAULT_CHANNELS = ['general', 'random'];
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { initSocket, sendSocketMessage, closeSocket } from '../api/wsService'
+import { useTranslation } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import leoProfanity from 'leo-profanity'
+const DEFAULT_CHANNELS = ['general', 'random']
 import {
   fetchChannels,
   fetchMessages,
@@ -13,18 +13,18 @@ import {
   addMessage,
   removeMessage,
   updateMessageStatus,
-} from '../store/chatSlice';
-import axios from 'axios';
-import MessageForm from './MessageForm';
-import AddChannelModal from './AddChannelModal';
-import RenameChannelModal from './RenameChannelModal';
-import DeleteChannelModal from './DeleteChannelModal';
-import './ChatPage.css';
+} from '../store/chatSlice'
+import axios from 'axios'
+import MessageForm from './MessageForm'
+import AddChannelModal from './AddChannelModal'
+import RenameChannelModal from './RenameChannelModal'
+import DeleteChannelModal from './DeleteChannelModal'
+import './ChatPage.css'
 
 const ChatPage = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { token } = useSelector(state => state.auth);
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const { token } = useSelector(state => state.auth)
   const {
     channels,
     currentChannelId,
@@ -32,95 +32,95 @@ const ChatPage = () => {
     loading,
     error,
     socketConnected
-  } = useSelector(state => state.chat);
-  const [openMenuChannelId, setOpenMenuChannelId] = useState(null);
+  } = useSelector(state => state.chat)
+  const [openMenuChannelId, setOpenMenuChannelId] = useState(null)
   const toggleChannelMenu = (channelId) => {
     if (openMenuChannelId === channelId) {
       setOpenMenuChannelId(null);
     } else {
-      setOpenMenuChannelId(channelId);
+      setOpenMenuChannelId(channelId)
     }
   };
   const filterProfanity = (text) => {
     if (!leoProfanity.list().length) {
-      leoProfanity.loadDictionary('ru');
-      leoProfanity.add(leoProfanity.getDictionary('en'));
+      leoProfanity.loadDictionary('ru')
+      leoProfanity.add(leoProfanity.getDictionary('en'))
 
     }
-    const originalText = text;
-    const filteredText = leoProfanity.clean(text);
+    const originalText = text
+    const filteredText = leoProfanity.clean(text)
     if (filteredText !== originalText) {
       toast.warn(t('chat.profanity_filtered'));
     }
 
-    return filteredText;
+    return filteredText
   };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.channel-menu') && !event.target.closest('.channel-menu-button')) {
-        setOpenMenuChannelId(null);
+        setOpenMenuChannelId(null)
       }
-    };
-    document.addEventListener('click', handleClickOutside);
+    }
+    document.addEventListener('click', handleClickOutside)
     return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-  const [isAddChannelOpen, setAddChannelOpen] = useState(false);
-  const [isRenameChannelOpen, setRenameChannelOpen] = useState(false);
-  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [channelToEdit, setChannelToEdit] = useState(null);
-  const openAddChannelModal = () => setAddChannelOpen(true);
-  const closeAddChannelModal = () => setAddChannelOpen(false);
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+  const [isAddChannelOpen, setAddChannelOpen] = useState(false)
+  const [isRenameChannelOpen, setRenameChannelOpen] = useState(false)
+  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
+  const [channelToEdit, setChannelToEdit] = useState(null)
+  const openAddChannelModal = () => setAddChannelOpen(true)
+  const closeAddChannelModal = () => setAddChannelOpen(false)
   const openRenameModal = (channel) => {
-    setChannelToEdit(channel);
-    setRenameChannelOpen(true);
-  };
+    setChannelToEdit(channel)
+    setRenameChannelOpen(true)
+  }
   const closeRenameModal = () => {
-    setChannelToEdit(null);
-    setRenameChannelOpen(false);
-  };
+    setChannelToEdit(null)
+    setRenameChannelOpen(false)
+  }
   const openDeleteConfirmModal = (channel) => {
-    setChannelToEdit(channel);
-    setDeleteConfirmOpen(true);
-  };
+    setChannelToEdit(channel)
+    setDeleteConfirmOpen(true)
+  }
   const closeDeleteConfirmModal = () => {
-    setChannelToEdit(null);
-    setDeleteConfirmOpen(false);
-  };
+    setChannelToEdit(null)
+    setDeleteConfirmOpen(false)
+  }
   useEffect(() => {
     const loadData = async () => {
       try {
-        await dispatch(fetchChannels()).unwrap();
-        await dispatch(fetchMessages()).unwrap();
+        await dispatch(fetchChannels()).unwrap()
+        await dispatch(fetchMessages()).unwrap()
       } catch (err) {
-        console.error('Ошибка при загрузке данных:', err);
+        console.error('Ошибка при загрузке данных:', err)
         if (!navigator.onLine) {
           toast.error(t('chat.network_error'));
         } else {
-          toast.error(`${t('chat.error_go')} ${t('chat.load_data_error')}`);
+          toast.error(`${t('chat.error_go')} ${t('chat.load_data_error')}`)
         }
       }
-    };
-    loadData();
-    initSocket(dispatch, token);
+    }
+    loadData()
+    initSocket(dispatch, token)
     return () => {
-      closeSocket();
+      closeSocket()
     };
-  }, [dispatch, token, t]);
+  }, [dispatch, token, t])
   const handleSendMessage = async (text) => {
-    if (!text.trim() || !currentChannelId) return;
-    const filteredText = filterProfanity(text);
-    const username = localStorage.getItem('username');
-    const tempId = `temp-${Date.now()}`;
+    if (!text.trim() || !currentChannelId) return
+    const filteredText = filterProfanity(text)
+    const username = localStorage.getItem('username')
+    const tempId = `temp-${Date.now()}`
     const tempMessage = {
       id: tempId,
       body: filteredText,
       channelId: currentChannelId,
       username,
       pending: true,
-    };
-    dispatch(addMessage(tempMessage));
+    }
+    dispatch(addMessage(tempMessage))
     try {
       const response = await axios.post('/api/v1/messages', {
         body: filteredText,
@@ -128,38 +128,36 @@ const ChatPage = () => {
         username,
       }, {
         headers: { Authorization: `Bearer ${token}` },
-      });
-      dispatch(removeMessage(tempId));
+      })
+      dispatch(removeMessage(tempId))
     } catch (err) {
-      console.error('Ошибка отправки:', err);
-      dispatch(updateMessageStatus({ id: tempId, status: 'error' }));
-      toast.error(t('chat.error_go') + ' ' + t('chat.message_send_error'));
+      console.error('Ошибка отправки:', err)
+      dispatch(updateMessageStatus({ id: tempId, status: 'error' }))
+      toast.error(t('chat.error_go') + ' ' + t('chat.message_send_error'))
     }
-  };
+  }
   const handleAddChannel = async (name) => {
     try {
-      const filteredName = filterProfanity(name);
+      const filteredName = filterProfanity(name)
       const response = await axios.post('/api/v1/channels', {
         name: filteredName
       }, {
         headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const newChannel = response.data;
-      dispatch(setCurrentChannel(newChannel.id));
-      toast.success(t('chat.channel_created'));
+      })
+      const newChannel = response.data
+      dispatch(setCurrentChannel(newChannel.id))
+      toast.success(t('chat.channel_created'))
     } catch (error) {
-      console.error('Ошибка добавления канала:', error);
-      toast.error(t('chat.error_create_channel'));
+      console.error('Ошибка добавления канала:', error)
+      toast.error(t('chat.error_create_channel'))
     }
-  };
-
+  }
   const handleDeleteChannel = async () => {
     if (!channelToEdit) return;
     try {
       await axios.delete(`/api/v1/channels/${channelToEdit.id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      });
+      })
       closeDeleteConfirmModal();
       toast.success(t('chat.channel_deleted'));
 
@@ -167,10 +165,10 @@ const ChatPage = () => {
       console.error('Ошибка при удалении канала:', err);
       toast.error(t('chat.error_go') + ' ' + t('chat.error_delete_channel'));
     }
-  };
+  }
   const currentMessages = messages.filter(
     msg => msg.channelId === currentChannelId
-  );
+  )
   if (loading) return <div>{t('chat.loading_go')}</div>;
   if (error) return <div>{t('chat.error_go')} {error}</div>;
 
@@ -185,9 +183,7 @@ const ChatPage = () => {
         </div>
         {DEFAULT_CHANNELS.map(channelName => {
           const channel = channels.find(ch => ch.name.toLowerCase() === channelName);
-
           if (!channel) return null;
-
           return (
             <button
               key={channel.id}
@@ -199,7 +195,7 @@ const ChatPage = () => {
             >
               {t(`chat.${channelName}_channel`)}
             </button>
-          );
+          )
         })}
 
         {channels
@@ -277,8 +273,8 @@ const ChatPage = () => {
                     {t('chat.rename_channel_one')}
                   </button>
                   <button onClick={() => {
-                    openDeleteConfirmModal(channel);
-                    setOpenMenuChannelId(null);
+                    openDeleteConfirmModal(channel)
+                    setOpenMenuChannelId(null)
                   }}>
                     {t('chat.delete_channel_one')}
                   </button>
@@ -329,7 +325,7 @@ const ChatPage = () => {
         <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChatPage;
+export default ChatPage

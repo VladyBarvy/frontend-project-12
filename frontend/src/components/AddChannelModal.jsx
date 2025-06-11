@@ -1,6 +1,6 @@
-import Modal from 'react-modal';
-import * as Yup from 'yup';
-import { Formik, Form, Field } from 'formik';
+import Modal from 'react-modal'
+import * as Yup from 'yup'
+import { Formik, Form, Field } from 'formik'
 
 const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => {
   const validationSchema = Yup.object({
@@ -9,7 +9,7 @@ const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => 
       .max(20, 'От 3 до 20 символов')
       .notOneOf(channels.map(c => c.name), 'Должно быть уникальным')
       .required('Обязательное поле'),
-  });
+  })
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Добавить канал">
@@ -18,9 +18,9 @@ const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => 
         initialValues={{ name: '' }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          onAddChannel(values.name);
-          setSubmitting(false);
-          onRequestClose();
+          onAddChannel(values.name)
+          setSubmitting(false)
+          onRequestClose()
         }}
       >
         {({ errors, touched }) => (
@@ -35,7 +35,7 @@ const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => 
         )}
       </Formik>
     </Modal>
-  );
-};
+  )
+}
 
-export default AddChannelModal;
+export default AddChannelModal

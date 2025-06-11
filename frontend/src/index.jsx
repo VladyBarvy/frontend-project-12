@@ -12,6 +12,6 @@ initPromise.then(() => {
         <App />
       </I18nextProvider>
     </StrictMode>
-  );
-});
+  )
+})
 

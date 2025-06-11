@@ -177,9 +177,12 @@ const ChatPage = () => {
   )
   if (loading) return <div>{t('chat.loading_go')}</div>
   if (error) {
-    return <div>{t('chat.error_go')}
-      {error}
-    </div>
+    return (
+      <div>
+        {t('chat.error_go')}
+        {error}
+      </div>
+    );
   }
   return (
     <div className="chat-container">
@@ -279,7 +282,8 @@ const ChatPage = () => {
                   <button onClick={() => {
                     openRenameModal(channel)
                     setOpenMenuChannelId(null)
-                  }}>
+                  }}
+                  >
                     {t('chat.rename_channel_one')}
                   </button>
                   <button onClick={() => {

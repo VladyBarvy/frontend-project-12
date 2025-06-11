@@ -41,7 +41,8 @@
     "autorisation": "Войти",
     "enter_your_login": "Ваш ник",
     "enter_go": "Вход...",
-    "enter_lets_go": "Войти"
+    "enter_lets_go": "Войти",
+    "login_error": "Неверные имя пользователя или пароль"
   },
   "not_found_page": {
     "no_p": "404 — Страница не найдена!",

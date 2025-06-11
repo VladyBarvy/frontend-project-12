@@ -34,7 +34,8 @@ function LoginPage() {
       dispatch(loginSuccess({ token, username: values.username }));
       navigate('/');
     } catch (err) {
-      dispatch(loginFailure(err.message));
+      // dispatch(loginFailure(err.message));
+      dispatch(loginFailure(t('login_page.login_error')));
     }
   };
 

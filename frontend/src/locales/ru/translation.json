@@ -76,7 +76,7 @@
     "channel_name_exist": "Канал с таким именем уже существует",
     "must_have_form": "Обязательное поле",
     "rename_channel_go": "Переименовать канал",
-    "name_of_channel": "Название канала:",
+    "name_of_channel": "Имя канала",
     "rename_go_one": "Отправить",
     "cancel_go": "Отменить"
   },

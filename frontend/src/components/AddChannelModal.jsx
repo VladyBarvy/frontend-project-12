@@ -24,12 +24,21 @@ const AddChannelModal = ({ isOpen, onRequestClose, onAddChannel, channels }) => 
         }}
       >
         {({ errors, touched }) => (
+          // <Form>
+          //   <Field name="name" placeholder="Имя канала" autoFocus />
+          //   {errors.name && touched.name && <div className="error">{errors.name}</div>}
+
+          //   <button type="submit">Добавить</button>
+          //   <button type="button" onClick={onRequestClose}>Отмена</button>
+          // </Form>
+
           <Form>
-            <Field name="name" placeholder="Имя канала" autoFocus />
+            <label htmlFor="channelName">Имя канала</label>
+            <Field id="channelName" name="name" placeholder="Имя канала" autoFocus />
             {errors.name && touched.name && <div className="error">{errors.name}</div>}
 
-            <button type="submit">Добавить</button>
-            <button type="button" onClick={onRequestClose}>Отмена</button>
+            <button type="submit">Отправить</button>
+            <button type="button" onClick={onRequestClose}>Отменить</button>
           </Form>
         )}
       </Formik>

@@ -1,11 +1,11 @@
-import Modal from 'react-modal';
-import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import axios from 'axios';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import leoProfanity from 'leo-profanity';
+import Modal from 'react-modal'
+import * as Yup from 'yup'
+import { useSelector } from 'react-redux'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import axios from 'axios'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import leoProfanity from 'leo-profanity'
 
 const RenameChannelModal = ({ channelId, initialName, onClose }) => {
   const token = useSelector((state) => state.auth.token);
@@ -24,7 +24,6 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
     }
     return filtered;
   };
-
   const RenameSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, t('rename_channel_page.symb_3'))
@@ -35,11 +34,9 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
   const handleRename = async (values, { setSubmitting }) => {
     try {
       const cleanName = filterProfanity(values.name);
-
       await axios.patch(`/api/v1/channels/${channelId}`, { name: cleanName }, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
       toast.success(t('chat.channel_renamed'));
       onClose();
     } catch (err) {
@@ -78,4 +75,4 @@ const RenameChannelModal = ({ channelId, initialName, onClose }) => {
   );
 };
 
-export default RenameChannelModal;
+export default RenameChannelModal

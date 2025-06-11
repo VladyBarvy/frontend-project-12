@@ -1,36 +1,12 @@
-// import { Link } from 'react-router-dom';
-// import './Navigation.css';
-
-// function Navigation() {
-//   return (
-//     <nav className="nav">
-//       <ul className="nav-list">
-//         <li>
-//           <Link to="/" className="nav-link">Главная</Link>
-//         </li>
-//         <li>
-//           <Link to="/login" className="nav-link">Вход</Link>
-//         </li>
-//         <li>
-//           <Link to="/signup" className="nav-link">Регистрация</Link>
-//         </li>
-//       </ul>
-//     </nav>
-//   );
-// }
-
-// export default Navigation;
-
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../store/authSlice';
-import './Navigation.css';
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../store/authSlice'
+import './Navigation.css'
 
 function Navigation() {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLogout = () => {
     dispatch(logout());
     navigate('/login');
@@ -62,5 +38,5 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default Navigation
 

@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import './NotFoundPage.css';
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom'
+import './NotFoundPage.css'
+import { useTranslation } from 'react-i18next'
 
 function NotFoundPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <div className="not-found">
       <h1>{t('not_found_page.no_p')}</h1>
@@ -13,4 +13,4 @@ function NotFoundPage() {
   );
 }
 
-export default NotFoundPage;
+export default NotFoundPage

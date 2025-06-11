@@ -1,20 +1,16 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../store/authSlice';
-import { useNavigate, Link } from 'react-router-dom';
-import './RegisterPage.css';
-import { useTranslation } from 'react-i18next';
-
-
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { loginSuccess } from '../store/authSlice'
+import { useNavigate, Link } from 'react-router-dom'
+import './RegisterPage.css'
+import { useTranslation } from 'react-i18next'
 
 function RegisterPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-
   const RegisterSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, t('registration_page.symbol_3_20'))
@@ -27,13 +23,10 @@ function RegisterPage() {
       .oneOf([Yup.ref('password'), null], t('registration_page.password_wrong'))
       .required(t('registration_page.must_have_form')),
   });
-
-
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       const { username, password } = values;
       const response = await axios.post('/api/v1/signup', { username, password });
-
       const { token } = response.data;
       dispatch(loginSuccess({ token, username }));
       localStorage.setItem('token', token);
@@ -60,26 +53,20 @@ function RegisterPage() {
         {({ errors, touched, isSubmitting }) => (
           <Form className="register-form">
             <div className="form-group">
-              
               <Field id="username" type="text" name="username" placeholder={t('registration_page.symbol_3_20')} autoComplete="username" required />
               <label htmlFor="username">{t('registration_page.name')}</label>
               <ErrorMessage name="username" component="div" className="error" />
             </div>
-
             <div className="form-group">
-             
               <Field id="password" type="password" name="password" placeholder={t('registration_page.symbol_six')} autoComplete="new-password" required />
-               <label htmlFor="password">{t('registration_page.password')}</label>
+              <label htmlFor="password">{t('registration_page.password')}</label>
               <ErrorMessage name="password" component="div" className="error" />
             </div>
-
             <div className="form-group">
-              
               <Field id="confirmPassword" type="password" name="confirmPassword" placeholder={t('registration_page.verif_password')} autoComplete="new-password" required />
               <label htmlFor="confirmPassword">{t('registration_page.verif_password')}</label>
               <ErrorMessage name="confirmPassword" component="div" className="error" />
             </div>
-
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? t('registration_page.registration_one') : t('registration_page.registration_two')}
             </button>
@@ -93,4 +80,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default RegisterPage

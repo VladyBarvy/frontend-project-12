@@ -42,7 +42,7 @@ function LoginPage() {
     <div className="login-page">
       <h1>{t('login_page.autorisation')}</h1>
       {error && <div className="error">{error}</div>}
-      
+
       <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={LoginSchema}
@@ -51,8 +51,8 @@ function LoginPage() {
         {({ errors, touched }) => (
           <Form className="login-form">
             <div className="form-group">
-              
-              <Field 
+
+              {/* <Field 
 								type="text"
                 as="input"
 								name="username"
@@ -65,20 +65,31 @@ function LoginPage() {
               
               {errors.username && touched.username && (
                 <div className="error">{errors.username}</div>
-              )}
+              )} */}
+
+
+              <Field id="username" type="text" name="username" placeholder={t('login_page.login_name')} autoComplete="username" required />
+              <label htmlFor="username">{t('login_page.login_name')}</label>
+              <ErrorMessage name="username" component="div" className="error" />
+
             </div>
 
+
+
+
+
+
             <div className="form-group">
-             
-              <Field 
-								name="password"
-								type="password"
-								id="password"
-								placeholder={t('login_page.password')}
+
+              <Field
+                name="password"
+                type="password"
+                id="password"
+                placeholder={t('login_page.password')}
                 autoComplete="password"
                 required
-							/>
-               <label htmlFor="password">{t('login_page.password')}</label>
+              />
+              <label htmlFor="password">{t('login_page.password')}</label>
               {errors.password && touched.password && (
                 <div className="error">{errors.password}</div>
               )}
@@ -91,9 +102,9 @@ function LoginPage() {
         )}
       </Formik>
 
-			<p className="register-link">
+      <p className="register-link">
         Нет аккаунта? <Link to="/signup">{t('login_page.sign_up_please')}</Link>
-       </p>
+      </p>
 
     </div>
   );

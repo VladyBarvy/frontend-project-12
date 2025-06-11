@@ -137,16 +137,19 @@
 
 
 .channel-menu.hidden {
-  visibility: hidden;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none; /* вот это важно */
+  opacity: 0;               /* вместо visibility: hidden */
+  pointer-events: none;     /* чтобы пользователь не мог кликнуть */
+  height: auto;             /* не ограничиваем высоту, чтобы элемент был в DOM */
+  overflow: visible;        /* чтобы содержимое не обрезалось */
+  transition: opacity 0.3s ease;
 }
 
 .channel-menu.visible {
-  visibility: visible;
-  height: auto;
+  opacity: 1;
   pointer-events: auto;
+  height: auto;
+  overflow: visible;
+  transition: opacity 0.3s ease;
 }
 
 

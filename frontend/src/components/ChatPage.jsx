@@ -651,7 +651,7 @@ const ChatPage = () => {
 
               {channel.removable && (
                 <div
-                  className={`channel-menu ${openMenuChannelId === channel.id ? 'visible' : 'hidden'}`}
+                  className={`channel-menu ${openMenuChannelId === channel.id ? 'visible' : 'hidden'}`}    
                   style={{
                     position: 'absolute',
                     background: 'white',

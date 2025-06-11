@@ -166,7 +166,6 @@ const ChatPage = () => {
       })
       closeDeleteConfirmModal()
       toast.success(t('chat.channel_deleted'))
-
     } catch (err) {
       console.error('Ошибка при удалении канала:', err)
       toast.error(t('chat.error_go') + ' ' + t('chat.error_delete_channel'))
@@ -176,7 +175,10 @@ const ChatPage = () => {
     msg => msg.channelId === currentChannelId
   )
   if (loading) return <div>{t('chat.loading_go')}</div>
-  if (error) return <div>{t('chat.error_go')} {error}</div>
+  if (error) 
+  return <div>{t('chat.error_go')}
+    {error}
+  </div>
 
   return (
     <div className="chat-container">
@@ -220,7 +222,8 @@ const ChatPage = () => {
                   aria-label={`# ${channel.name}`}
                   style={{ flexGrow: 1, textAlign: 'left' }}
                 >
-                  # {channel.name}
+                  #
+                  {channel.name}
                 </button>
 
                 <button
@@ -287,14 +290,16 @@ const ChatPage = () => {
                 </div>
               )}
             </div>
-          ))
-        }
+          ))}
       </div>
       <div className="chat-area">
         <div className="messages">
           {currentMessages.map(message => (
             <div key={message.id} className="message">
-              <strong>{message.username}:</strong> {message.body}
+              <strong>{message.username}
+                :
+              </strong>
+              {message.body}
             </div>
           ))}
         </div>

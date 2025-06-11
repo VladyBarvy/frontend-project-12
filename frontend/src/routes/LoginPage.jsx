@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginStart, loginSuccess, loginFailure } from '../store/authSlice';
@@ -69,7 +69,7 @@ function LoginPage() {
 
 
               <Field id="username" type="text" name="username" placeholder={t('login_page.login_name')} autoComplete="username" required />
-              <label htmlFor="username">{t('login_page.login_name')}</label>
+              <label htmlFor="username">{t('login_page.login_name') || 'Ваш ник'}</label>
               <ErrorMessage name="username" component="div" className="error" />
 
             </div>

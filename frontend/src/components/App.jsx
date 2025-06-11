@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 function RootRoute() {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
-  return isAuthenticated ? <ChatPage /> : <HomePage />;
+  return isAuthenticated ? <ChatPage /> : <LoginPage />;
 }
 
 function App() {

@@ -146,9 +146,9 @@ const ChatPage = () => {
       const response = await axios.post('/api/v1/channels', {
         name: filteredName,
       },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       const newChannel = response.data
       dispatch(setCurrentChannel(newChannel.id))
       toast.success(t('chat.channel_created'))
@@ -182,7 +182,7 @@ const ChatPage = () => {
         {t('chat.error_go')}
         {error}
       </div>
-    );
+    )
   }
   return (
     <div className="chat-container">
@@ -193,7 +193,7 @@ const ChatPage = () => {
             +
           </button>
         </div>
-        {DEFAULT_CHANNELS.map(channelName => {
+        {DEFAULT_CHANNELS.map((channelName) => {
           const channel = channels.find(ch => ch.name.toLowerCase() === channelName)
           if (!channel) return null
           return (

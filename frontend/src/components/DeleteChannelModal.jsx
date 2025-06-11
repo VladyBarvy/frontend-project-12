@@ -9,7 +9,7 @@ function DeleteChannelModal ({ isOpen, onRequestClose, onConfirm, channelName })
     <h2>{t('delete_channel_page.delete_channel')}</h2>
     <p>{t('delete_channel_page.are_you_sure')} «{channelName}»?</p>
     <div>
-      <button onClick={onConfirm}>{t('delete_channel_page.delete_go')}</button>
+      <button className="btn-danger" onClick={onConfirm}>{t('delete_channel_page.delete_go')}</button>
       <button onClick={onRequestClose}>{t('delete_channel_page.cancel_go')}</button>
     </div>
   </Modal>

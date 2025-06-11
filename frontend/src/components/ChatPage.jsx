@@ -541,8 +541,8 @@ const ChatPage = () => {
 
 
 
-
-        {channels
+        {/* 110625 19_55 */}
+        {/* {channels
           .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
           .map(channel => (
             <div key={channel.id} className={channel.id === currentChannelId ? 'active' : ''} style={{ position: 'relative' }}>
@@ -601,9 +601,92 @@ const ChatPage = () => {
               )}
             </div>
           ))
+        } */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {channels
+          .filter(channel => !DEFAULT_CHANNELS.includes(channel.name.toLowerCase()))
+          .map(channel => (
+            <div
+              key={channel.id}
+              className={channel.id === currentChannelId ? 'active' : ''}
+              style={{ position: 'relative', marginBottom: '60px' }}
+            >
+              {/* Обернем кнопки в flex-контейнер */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <button
+                  className="channel-button"
+                  onClick={() => dispatch(setCurrentChannel(channel.id))}
+                  type="button"
+                  aria-label={`# ${channel.name}`}
+                  style={{ flexGrow: 1, textAlign: 'left' }} // кнопка занимает максимум места слева
+                >
+                  # {channel.name}
+                </button>
+
+                <button
+                  className="channel-menu-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleChannelMenu(channel.id);
+                  }}
+                  aria-label={t('chat.menu_of_channel')}
+                  style={{ marginLeft: '8px' }} // небольшой отступ слева от кнопки меню
+                >
+                  ⋮
+                </button>
+              </div>
+
+              {channel.removable && (
+                <div
+                  className={`channel-menu ${openMenuChannelId === channel.id ? 'visible' : 'hidden'}`}
+                  style={{
+                    position: 'absolute',
+                    background: 'white',
+                    border: '1px solid #ccc',
+                    padding: '5px',
+                    zIndex: 10,
+                    top: '100%', // под кнопками
+                    right: 0,    // выравнивание по правому краю кнопки меню
+                  }}
+                >
+                  <div
+                    role="heading"
+                    aria-level={3}
+                    style={{ padding: '4px 8px', fontWeight: 'bold', borderBottom: '1px solid #ccc', marginBottom: '5px' }}
+                  >
+                    Управление каналом
+                  </div>
+
+                  <button onClick={() => {
+                    openRenameModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    {t('chat.rename_channel_one')}
+                  </button>
+                  <button onClick={() => {
+                    openDeleteConfirmModal(channel);
+                    setOpenMenuChannelId(null);
+                  }}>
+                    {t('chat.delete_channel_one')}
+                  </button>
+                </div>
+              )}
+            </div>
+          ))
         }
-
-
 
 
 

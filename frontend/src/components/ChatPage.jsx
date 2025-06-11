@@ -441,7 +441,8 @@ const ChatPage = () => {
                 onClick={() => dispatch(setCurrentChannel(channel.id))}
                 type="button"
                 role="button"
-                aria-label={t(`chat.custom_channel`)}
+                aria-label={`# ${channel.name}`}  // <-- заменить здесь
+                // aria-label={t(`chat.custom_channel`)}
               >
                 # {channel.name}
               </button>

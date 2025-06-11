@@ -17,6 +17,7 @@ const MessageForm = ({ onSubmit, isSubmitting, isConnected }) => {
     <form onSubmit={handleSubmit} className="message-form">
       <input
         type="text"
+        aria-label={t('messageform_page.new_message') || 'Новое сообщение'}
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={isConnected ? t('messageform_page.write_message') : t('messageform_page.connect_me')}

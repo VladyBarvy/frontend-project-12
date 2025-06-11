@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../store/store.js'
-import LoginPage from "../routes/LoginPage.jsx"
+import LoginPage from '../routes/LoginPage.jsx'
 import NotFoundPage from '../routes/NotFoundPage.jsx'
 import ChatPage from './ChatPage'
 import Navigation from './Navigation'
 import RegisterPage from '../routes/RegisterPage.jsx'
-import "./App.css"
+import './App.css'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import { useSelector } from 'react-redux'
 
@@ -27,7 +27,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route
             path="/chat"
-            element={
+            element=
+            {
               <ProtectedRoute>
                 <ChatPage />
               </ProtectedRoute>

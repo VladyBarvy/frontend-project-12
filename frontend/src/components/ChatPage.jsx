@@ -622,7 +622,7 @@ const ChatPage = () => {
             <div
               key={channel.id}
               className={channel.id === currentChannelId ? 'active' : ''}
-              style={{ position: 'relative', marginBottom: '60px' }}
+              style={{ position: 'relative', marginBottom: '100px' }}
             >
               {/* Обернем кнопки в flex-контейнер */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

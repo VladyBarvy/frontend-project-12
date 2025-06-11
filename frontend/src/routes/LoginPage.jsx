@@ -57,11 +57,12 @@ function LoginPage() {
                 as="input"
 								name="username"
 								id="username"
-								placeholder="Ваш ник"
+								placeholder={t('login_page.login_name')}
                 autoComplete="username"
                 required
 							/>
-              <label htmlFor="username">Ваш ник</label>
+              <label htmlFor="username">{t('login_page.login_name')}</label>
+              
               {errors.username && touched.username && (
                 <div className="error">{errors.username}</div>
               )}

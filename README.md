@@ -54,29 +54,28 @@ http://127.0.0.1:5001/
 <div align="center">
 <img src="screenshots/auth.png" width="50%" alt="авторизация">
 </div>
----
+
 - Регистрация
 <div align="center">
 <img src="screenshots/registration.png" width="50%" alt="регистрация">
 </div>
----
+
 - Основное окно чата
 <div align="center">
 <img src="screenshots/chat_1.png" width="50%" alt="чат_1">
 </div>
----
+
 - Отправка сообщения
 <div align="center">
 <img src="screenshots/chat_2.png" width="50%" alt="чат_2">
 </div>
----
+
 - Добавление нового канала
 <div align="center">
 <img src="screenshots/add_channel_modal.png" width="50%" alt="новый_канал">
 </div>
----
+
 - Меню управления новым каналом
 <div align="center">
 <img src="screenshots/new_channel.png" width="50%" alt="меню_канала">
 </div>
----
